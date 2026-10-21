@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0e1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="OHF Bible">
+<title>Old Head Fantasy Holy Bible</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: a sports record-book as a tabbed hub. */
+html,body{margin:0;padding:0}
+:root{
+  --bg:#eef1f5;--surface:#ffffff;--surface2:#f5f7fa;--fg:#172230;--muted:#5b6777;
+  --line:#dce2ea;--gold:#a9792b;--gold-soft:#f1e4c6;--win:#2f8f58;--loss:#c6493a;
+  --shadow:0 1px 2px rgba(20,32,48,.06),0 8px 24px rgba(20,32,48,.06);
+  --display:"Oswald","Arial Narrow",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1117;--surface:#161c26;--surface2:#1c2430;--fg:#e8edf4;--muted:#9aa7b7;
+  --line:#28313f;--gold:#e6b53c;--gold-soft:#2a2514;--win:#49b874;--loss:#e76552;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0e1117;--surface:#161c26;--surface2:#1c2430;--fg:#e8edf4;--muted:#9aa7b7;
+  --line:#28313f;--gold:#e6b53c;--gold-soft:#2a2514;--win:#49b874;--loss:#e76552;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--surface)}
+a{color:inherit}
+.mlink{color:var(--gold);text-decoration:none;cursor:pointer;font-weight:700}
+.mlink:hover{text-decoration:underline}
+
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:10px;min-height:52px}
+.brand{display:flex;align-items:baseline;gap:9px;margin-right:auto;min-width:0}
+.brand b{font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand .ohfl{color:var(--gold)}
+.brand span{color:var(--muted);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.theme{font:inherit;font-size:.9rem;background:var(--surface2);border:1px solid var(--line);color:var(--fg);width:38px;height:38px;border-radius:9px;cursor:pointer;flex:none}
+button:focus-visible,select:focus-visible,[tabindex]:focus-visible,.mlink:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs button{font:inherit;font-family:var(--display);font-size:.92rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:12px 14px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-pressed="true"]{color:var(--fg);border-bottom-color:var(--gold)}
+body::after{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--surface)}
+
+main{padding-bottom:40px}
+.tabpane{display:none}
+.tabpane.active{display:block}
+
+.hero{padding-block:28px 10px}
+.eyebrow{font-family:var(--display);text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-size:.8rem;font-weight:600}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);text-transform:uppercase;letter-spacing:.01em;margin:.1em 0 .14em}
+.hero p{color:var(--muted);max-width:60ch;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+.tile .k{font-family:var(--display);font-size:1.8rem;font-weight:700;line-height:1}
+.tile .k.gold{color:var(--gold)}
+.tile .l{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;margin-top:5px}
+.memorial{margin-top:14px;display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,var(--gold-soft),var(--surface));border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.memorial .em{font-size:1.4rem}
+.memorial h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.03em;font-size:1rem}
+.memorial p{color:var(--muted);font-size:.84rem;margin:4px 0 0}
+.memorial b{color:var(--fg)}
+
+section{padding-block:26px;border-top:1px solid var(--line)}
+.tabpane > section:first-of-type{border-top:0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.sec-head h2{font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;user-select:none}
+.sec-head p{color:var(--muted);font-size:.84rem;margin:0;max-width:52ch}
+.caret{display:inline-block;transition:transform .15s;color:var(--muted);font-size:.6em;margin-right:.4em;vertical-align:middle}
+section[data-collapsed] .caret{transform:rotate(-90deg)}
+section[data-collapsed] > :not(.sec-head){display:none}
+
+.tableScroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:480px}
+th,td{padding:10px 13px;text-align:left;white-space:nowrap}
+thead th{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem;color:var(--muted);border-bottom:1px solid var(--line);background:var(--surface2);position:sticky;top:0}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--fg)} th .arrow{color:var(--gold);font-size:.7em}
+tbody tr{border-bottom:1px solid var(--line)} tbody tr:last-child{border-bottom:0} tbody tr:hover{background:var(--surface2)}
+td.num{text-align:right}
+.ctr th.num,.ctr td.num{text-align:center}
+.rank{color:var(--muted);width:2.2em}
+.mgr{font-weight:700}
+.sub{color:var(--muted);font-size:.78rem;font-weight:400}
+.pct{font-family:var(--display);font-weight:600}
+.wl b{color:var(--win)} .wl i{color:var(--loss);font-style:normal}
+.chip{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+.chip.gold{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.trophy{color:var(--gold)} .pos{color:var(--win);font-weight:700} .neg{color:var(--loss);font-weight:700}
+
+/* scoreboard */
+.sb{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.game{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 14px;box-shadow:var(--shadow)}
+.grow{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.grow:last-child{border-bottom:0}
+.grow .tm{font-weight:700} .grow .mn{color:var(--muted);font-size:.76rem}
+.grow .rc{margin-left:auto;color:var(--muted);font-size:.8rem;font-family:var(--display);font-weight:600}
+
+/* awards */
+.awards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.award{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.award .ic{font-size:1.3rem}
+.award .t{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:.64rem;color:var(--muted);margin:4px 0}
+.award .w{font-weight:700} .award .d{color:var(--muted);font-size:.78rem}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:4.5em 1fr 3em;align-items:center;gap:10px}
+.bar .nm{font-weight:700;font-size:.9rem}
+.bar .track{background:var(--surface2);border:1px solid var(--line);border-radius:999px;height:16px;overflow:hidden}
+.bar .fill{height:100%;background:var(--gold);border-radius:999px}
+.bar .v{font-family:var(--display);font-weight:600;text-align:right;font-size:.85rem}
+
+.years{display:flex;gap:6px;flex-wrap:wrap}
+.years button{font:inherit;font-family:var(--display);font-size:1rem;font-weight:600;padding:6px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.years button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#140f02}
+.yearpick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.yearpick .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.yearpick button{font:inherit;font-size:.82rem;font-weight:600;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.yearpick button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#140f02}
+.yearpick button.all[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:15px}
+.pod{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px;text-align:center;box-shadow:var(--shadow)}
+.pod .medal{font-size:1.4rem}
+.pod.first{border-color:color-mix(in srgb,var(--gold) 55%,var(--line));background:linear-gradient(180deg,var(--gold-soft),var(--surface))}
+.pod .ph{font-family:var(--display);text-transform:uppercase;letter-spacing:.09em;font-size:.66rem;color:var(--muted);margin-bottom:4px}
+.pod .pm{font-weight:700;font-size:1.05rem} .pod .pt{color:var(--muted);font-size:.8rem}
+.pod.solo{grid-column:1/-1;text-align:left;display:flex;gap:14px;align-items:center}.pod.solo .medal{font-size:2rem}
+
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow)}
+.ca .yr{font-family:var(--display);font-size:1.4rem;font-weight:700}
+.ca.tbd{opacity:.75;border-style:dashed}
+.ca.max{border-color:color-mix(in srgb,var(--gold) 55%,var(--line));background:linear-gradient(180deg,var(--gold-soft),var(--surface))}
+.ca .cm{font-weight:700;margin-top:6px} .ca .ct{color:var(--muted);font-size:.8rem} .ca .cr{margin-top:7px;font-size:.73rem;color:var(--muted)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.scoreline{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreline:last-child{border-bottom:0}
+.scoreline .s{font-family:var(--display);font-weight:700;font-size:1.05rem;min-width:3.4em}
+.scoreline.hi .s{color:var(--win)} .scoreline.lo .s{color:var(--loss)}
+.scoreline .who{font-weight:700} .scoreline .mi{color:var(--muted);font-size:.78rem;margin-left:auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px;box-shadow:var(--shadow)}
+.panel h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;font-size:.82rem;color:var(--muted);margin:12px 2px 4px}
+
+.gridhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 10px}
+.gridhead h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:1rem}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.toggle button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 13px;background:var(--surface);color:var(--muted);border:0;cursor:pointer}
+.toggle button+button{border-left:1px solid var(--line)}
+.toggle button[aria-pressed="true"]{background:var(--gold);color:#140f02}
+#h2hMatrix th,#h2hMatrix td{padding:6px 8px;text-align:center;font-size:.82rem}
+#h2hMatrix thead th{font-size:.66rem}
+#h2hMatrix tbody th{text-align:left;font-weight:700;background:var(--surface2);position:sticky;left:0;white-space:nowrap}
+
+.rivs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.riv h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;font-size:1.05rem}
+.riv .score{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--gold);margin:4px 0}
+.riv p{color:var(--muted);font-size:.8rem;margin:0}
+
+/* managers */
+.mgrs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mcard{cursor:pointer;display:flex;flex-direction:column;gap:6px;text-align:left}
+.mcard .nm{font-family:var(--display);font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.mcard .tm{color:var(--gold);font-size:.8rem;font-weight:700}
+.mcard .rr{display:flex;gap:10px;color:var(--muted);font-size:.8rem;margin-top:2px}
+.mcard .rr b{color:var(--fg);font-family:var(--display)}
+.backbtn{font:inherit;font-size:.82rem;font-weight:600;background:var(--surface2);border:1px solid var(--line);color:var(--fg);padding:7px 13px;border-radius:9px;cursor:pointer;margin-bottom:16px}
+.phead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.phead h2{font-size:2rem;text-transform:uppercase}
+.phead .pt{color:var(--gold);font-weight:700}
+.pstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.pstat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+.pstat .k{font-family:var(--display);font-size:1.5rem;font-weight:700}
+.pstat .l{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.prow{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.prow h4{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;color:var(--muted);margin:0 0 6px}
+.prow .big{font-weight:700}
+
+/* trade tracker */
+.tradeList{display:flex;flex-direction:column;gap:12px}
+.trade{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.trade-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.trade-h .td{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.95rem}
+.trade-sides{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:10px}
+.tside{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tside.win{border-color:color-mix(in srgb,var(--win) 55%,var(--line));background:color-mix(in srgb,var(--win) 12%,var(--surface))}
+.tside .ts-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.tside .haul{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.tside .haul small{color:var(--muted);font-size:.58em;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.tside .ts-get{color:var(--muted);font-size:.8rem;margin-top:6px;line-height:1.7}
+.tside .ts-get i{color:var(--fg);font-style:normal;font-weight:700}
+.tvs{align-self:center;color:var(--muted);font-size:1.2rem}
+.trade-foot{margin-top:10px;font-size:.82rem}
+@media (max-width:560px){.trade-sides{grid-template-columns:1fr}.tvs{transform:rotate(90deg);padding:2px 0}}
+.pods{display:flex;flex-direction:column;gap:10px}
+.ep{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.ep .ico{font-size:1.3rem} .ep b{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em} .ep p{color:var(--muted);font-size:.82rem;margin:3px 0 0}
+
+footer{border-top:1px solid var(--line);padding-block:24px 36px;color:var(--muted);font-size:.78rem}
+footer b{color:var(--fg)}
+.legend{color:var(--muted);font-size:.74rem;margin-top:10px}
+
+@media (max-width:820px){
+  .tiles,.grid4{grid-template-columns:repeat(2,1fr)}
+  .awards{grid-template-columns:repeat(2,1fr)}
+  .sb{grid-template-columns:1fr}
+  .rivs{grid-template-columns:1fr 1fr}
+  .mgrs{grid-template-columns:repeat(2,1fr)}
+  .two{grid-template-columns:1fr}
+  .pstats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:440px){.rivs,.mgrs{grid-template-columns:1fr}.podium{grid-template-columns:1fr}.awards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand"><b><span class="ohfl">OHFL</span></b><span>Est. 2022 · 12 teams</span></div>
+  <button class="theme" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+</div></header>
+<nav class="tabs"><div class="wrap" id="tabnav"></div></nav>
+
+<main class="wrap">
+  <!-- THIS WEEK -->
+  <div class="tabpane" id="tab-thisweek">
+    <section class="hero">
+      <div class="eyebrow">The Old Head Fantasy League</div>
+      <h1>Old Head Fantasy Holy Bible</h1>
+      <p>A dozen former college wrestlers, one PPR league, and a trophy named for a founder. Live every week — scores, awards, power rankings, playoff odds.</p>
+      <div class="tiles">
+        <div class="tile"><div class="k gold">5</div><div class="l">Seasons (2022–26)</div></div>
+        <div class="tile"><div class="k">4</div><div class="l">Champions</div></div>
+        <div class="tile"><div class="k">Wk 7</div><div class="l">Current week</div></div>
+        <div class="tile"><div class="k">$600</div><div class="l">Annual pot</div></div>
+      </div>
+      <div class="memorial"><span class="em trophy">🏆</span><div><h3>The Max Emerson Trophy</h3>
+        <p><b>Max Emerson</b> founded the league in 2022, was its first commissioner and first champion. After he passed, CB took over. Every champion since lifts the trophy that bears his name. <span style="color:var(--fg)">This one’s for Max.</span></p></div></div>
+    </section>
+    <section id="scoreboard"><div class="sec-head"><div><h2>This Week</h2></div><p id="sbNote"></p></div><div class="sb" id="sbGames"></div></section>
+    <section id="awards"><div class="sec-head"><div><h2>Last Week’s Awards</h2></div><p id="awNote"></p></div><div class="awards" id="awGrid"></div></section>
+    <section id="power"><div class="sec-head"><div><h2>Power Rankings</h2></div><p>Computed blend of record, scoring, and recent form. 2026.</p></div>
+      <div class="tableScroll ctr"><table id="powerTable"><thead><tr><th>#</th><th>Manager</th><th class="num">Record</th><th class="num">Points</th><th class="num">Last 3 avg</th></tr></thead><tbody></tbody></table></div></section>
+    <section id="playoff"><div class="sec-head"><div><h2>Playoff Odds</h2></div><p>20,000-season Monte Carlo over the remaining schedule. Top 6 make the playoffs.</p></div>
+      <div class="bars" id="poBars"></div></section>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="tabpane" id="tab-history">
+    <section id="alltime"><div class="sec-head"><div><h2>All-Time Standings</h2></div><p>Official regular-season record, 2023–present (2022 lost). Tap a column to sort.</p></div>
+      <div class="tableScroll ctr"><table id="allTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="w">W</th><th class="sortable num" data-sort="l">L</th><th class="sortable num" data-sort="pct">Win%</th><th class="sortable num" data-sort="titles">Titles</th><th class="num">Best Yr</th></tr></thead><tbody></tbody></table></div>
+      <p class="legend">CB owns the best record in league history (34-10) and has still never won it.</p></section>
+    <section id="seasons"><div class="sec-head"><div><h2>Season by Season</h2></div><div class="years" id="years"></div></div>
+      <div class="podium" id="podium"></div>
+      <div class="tableScroll ctr" id="seasonTableWrap"><table id="seasonTable"><thead><tr><th>#</th><th>Team</th><th>Manager</th><th class="num">Record</th></tr></thead><tbody></tbody></table></div>
+      <p class="legend" id="seasonNote"></p></section>
+    <section id="trophies"><div class="sec-head"><div><h2>Trophy Room</h2></div><p>Champions, and who finished last.</p></div>
+      <div class="grid4" id="champs"></div>
+      <p class="legend">Last place by year — <b>2023:</b> Oz (0-13) · <b>2024:</b> Tobias · <b>2025:</b> J Ray.</p></section>
+    <section id="records"><div class="sec-head"><div><h2>Record Book</h2></div><p>All-time superlatives.</p></div><div class="grid4" id="records-grid"></div></section>
+    <section id="weekly"><div class="sec-head"><div><h2>Weekly High Scores</h2></div><p>Biggest single regular-season weeks (and the duds). 2023–present.</p></div>
+      <div class="two"><div class="panel"><h3>Top Explosions</h3><div id="topWeeks"></div></div><div class="panel"><h3>Rough Afternoons</h3><div id="lowWeeks"></div></div></div></section>
+    <section id="streaks"><div class="sec-head"><div><h2>Streaks</h2></div><p>Longest win/loss streaks and current form. 2023–present. Tap a column to sort.</p></div>
+      <div class="tableScroll ctr"><table id="streakTable"><thead><tr><th class="sortable" data-sort="m">Manager</th><th class="sortable num" data-sort="win">Longest W</th><th class="sortable num" data-sort="loss">Longest L</th><th class="sortable num" data-sort="cur">Current</th></tr></thead><tbody></tbody></table></div></section>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="tabpane" id="tab-analytics">
+    <section id="h2h"><div class="sec-head"><div><h2>Head to Head</h2></div><p>Every meeting 2023–present, regular season + playoffs.</p></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px"><select id="h2hA" aria-label="Manager A"></select><span style="color:var(--muted);font-family:var(--display);text-transform:uppercase;letter-spacing:.1em;font-size:.8rem">vs</span><select id="h2hB" aria-label="Manager B"></select></div>
+      <div id="h2hResult" style="background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)"></div>
+      <div class="gridhead"><h3>The Grid <span class="sub" style="font-weight:400;text-transform:none;letter-spacing:0">— manager vs. every opponent</span></h3><div class="toggle" id="gridToggle"><button data-m="wins" aria-pressed="true">Wins</button><button data-m="pct" aria-pressed="false">Win %</button></div></div>
+      <div class="tableScroll"><table id="h2hMatrix"></table></div><p class="legend" id="gridLegend"></p></section>
+    <section id="rivalries"><div class="sec-head"><div><h2>Rivalries</h2></div><p>Grudges, bloodlines, and the Wolfpack. H2H since 2023.</p></div><div class="rivs" id="rivs"></div></section>
+    <section id="coaching"><div class="sec-head"><div><h2>Coaching Efficiency</h2></div><p>% of your optimal lineup you actually started — pure lineup-setting, not roster quality. 2024–present. Tap to sort.</p></div>
+      <div class="tableScroll ctr"><table id="coachTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="eff">Efficiency</th><th class="sortable num" data-sort="left">Pts left/wk</th><th class="sortable num" data-sort="y2024">2024</th><th class="sortable num" data-sort="y2025">2025</th><th class="sortable num" data-sort="y2026">2026</th></tr></thead><tbody></tbody></table></div>
+      <p class="legend">Low efficiency = leaving points on the bench. High-floor rosters that get mismanaged show up here.</p></section>
+    <section id="scoring"><div class="sec-head"><div><h2>Scoring &amp; Luck</h2></div><p>Points and the luck index vs. an all-play schedule.</p></div>
+      <div class="yearpick" id="scoreYears"><span class="lbl">Seasons:</span></div>
+      <div class="tableScroll ctr"><table id="scoreTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="pf">Points</th><th class="sortable num" data-sort="ppg">PPG</th><th class="sortable num" data-sort="rec">Record</th><th class="num">All-Play</th><th class="sortable num" data-sort="luck">Luck</th></tr></thead><tbody></tbody></table></div><p class="legend" id="luckNote"></p></section>
+    <section id="draft"><div class="sec-head"><div><h2>2026 Draft Report</h2></div><p>Skill positions only (WR/RB/TE). Points produced by each manager’s drafted skill players this season, plus the steals and busts.</p></div>
+      <div class="two"><div class="panel"><h3>Biggest Steals (round 8+)</h3><div id="steals"></div></div><div class="panel"><h3>Biggest Busts (rounds 1–5)</h3><div id="busts"></div></div></div>
+      <div class="tableScroll ctr" style="margin-top:14px"><table id="draftTable"><thead><tr><th>#</th><th>Manager</th><th class="num">Draft Pts</th><th>Best Pick</th></tr></thead><tbody></tbody></table></div>
+      <p class="legend">Busts are dominated by early picks lost to injury (A.J. Brown, Saquon, Achane).</p></section>
+    <section id="waivers"><div class="sec-head"><div><h2>Waiver Wire Gems</h2></div><p>Top-scoring 2026 players who went undrafted — skill positions only.</p></div>
+      <div class="tableScroll ctr"><table id="waiverTable"><thead><tr><th>#</th><th>Player</th><th>Pos</th><th>Manager</th><th class="num">2026 Pts</th></tr></thead><tbody></tbody></table></div></section>
+    <section id="activity"><div class="sec-head"><div><h2>Acquisitions &amp; Trades</h2></div><p>Season transaction totals from ESPN — acquisitions (waiver + free-agent adds) and completed trades. 2026. Tap a column to sort.</p></div>
+      <div class="tableScroll ctr"><table id="actTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="acq">Acquisitions</th><th class="sortable num" data-sort="trades">Trades</th></tr></thead><tbody></tbody></table></div></section>
+    <section id="trades"><div class="sec-head"><div><h2>Trade Tracker</h2></div><p>Every completed trade this season, with the fantasy points each side’s new players have scored since the deal. “Winning” = more post-trade production.</p></div>
+      <div class="tradeList" id="tradeList"></div>
+      <p class="legend">Players are credited only for the weeks they were actually on the acquiring roster, so re-traded players (CeeDee Lamb, A.J. Brown, Chuba Hubbard, Joe Burrow, J.K. Dobbins) count toward whichever trade’s window they played in. Totals update as games finish.</p></section>
+  </div>
+
+  <!-- MANAGERS -->
+  <div class="tabpane" id="tab-managers">
+    <div id="mgrGrid"><section style="border-top:0"><div class="sec-head"><div><h2>The Managers</h2></div><p>Tap a manager for their full profile. 🐺 = Wolfpack.</p></div><div class="mgrs" id="mgrs"></div></section></div>
+    <div id="mgrProfile" hidden></div>
+  </div>
+
+  <!-- PODCAST -->
+  <div class="tabpane" id="tab-podcast">
+    <section style="border-top:0" id="podcast"><div class="sec-head"><div><h2>The Podcast</h2></div><p>The Old Heads Fantasy League Recap — the Tuesday weekly recap show, hosted by “Chasenstein.” Comedy first, nobody is safe.</p></div>
+      <div class="pods" id="pods"></div>
+      <p class="legend">A fresh recap drops every Tuesday once the week’s games are final. Earlier-week episodes are being added to the archive.</p></section>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div><b>The Old Heads Fantasy League Recap</b> — founded 2022 by Max Emerson; commissioned today by CB “Chasenstein.” Records are regular-season (2023 onward, ESPN); 2022’s were lost. Player-level analytics (coaching, draft) are 2024–present. 2026 is live.</div>
+</footer>
+
+<script>
+const SD={"thisWeek": {"week": 7, "games": [{"home": {"mgr": "Tobias", "team": "Diggs in his booty", "rec": "3-3", "pf": 682.5}, "away": {"mgr": "Bo", "team": "Big Wolf", "rec": "2-4", "pf": 850.4}}, {"home": {"mgr": "Brady", "team": "SoggyBottomBoyz", "rec": "2-4", "pf": 743.1}, "away": {"mgr": "Jarvis", "team": "Bones", "rec": "4-2", "pf": 699.4}}, {"home": {"mgr": "Will", "team": "Team Parish", "rec": "3-3", "pf": 753.0}, "away": {"mgr": "Chris", "team": "Jawbreaker", "rec": "3-3", "pf": 756.3}}, {"home": {"mgr": "CB", "team": "CB BY 90", "rec": "4-2", "pf": 847.3}, "away": {"mgr": "Hayden", "team": "CrustY DusterZ", "rec": "2-4", "pf": 654.5}}, {"home": {"mgr": "Oz", "team": "Olave Garden", "rec": "5-1", "pf": 811.4}, "away": {"mgr": "J Ray", "team": "J.RayyyyBaby", "rec": "4-2", "pf": 791.8}}, {"home": {"mgr": "Jake", "team": "Thai spinners", "rec": "0-6", "pf": 639.6}, "away": {"mgr": "Jarod", "team": "Hung Like a Bronco", "rec": "4-2", "pf": 816.5}}]}, "lastWeek": {"week": 6, "awards": {"bigdog": {"mgr": "Bo", "pts": 154.8}, "clown": {"mgr": "Jarvis", "pts": 87.2}, "bench": {"mgr": "Chris", "left": 34.2}, "blowout": {"winner": "Bo", "loser": "Brady", "margin": 51.6, "ws": 154.8, "ls": 103.1}, "nailbiter": {"winner": "Jarod", "loser": "J Ray", "margin": 2.8, "ws": 122.4, "ls": 119.6}}}, "power": [{"mgr": "CB", "rank": 1, "rec": "4-2", "pf": 847.3, "last3": 152.1, "score": 1.17}, {"mgr": "Oz", "rank": 2, "rec": "5-1", "pf": 811.4, "last3": 120.7, "score": 0.88}, {"mgr": "Jarod", "rank": 3, "rec": "4-2", "pf": 816.5, "last3": 133.5, "score": 0.76}, {"mgr": "J Ray", "rank": 4, "rec": "4-2", "pf": 791.8, "last3": 141.6, "score": 0.71}, {"mgr": "Bo", "rank": 5, "rec": "2-4", "pf": 850.4, "last3": 149.4, "score": 0.53}, {"mgr": "Will", "rank": 6, "rec": "3-3", "pf": 753.0, "last3": 125.7, "score": -0.02}, {"mgr": "Chris", "rank": 7, "rec": "3-3", "pf": 756.3, "last3": 117.3, "score": -0.1}, {"mgr": "Brady", "rank": 8, "rec": "2-4", "pf": 743.1, "last3": 131.2, "score": -0.32}, {"mgr": "Jarvis", "rank": 9, "rec": "4-2", "pf": 699.4, "last3": 100.4, "score": -0.33}, {"mgr": "Tobias", "rank": 10, "rec": "3-3", "pf": 682.5, "last3": 120.7, "score": -0.49}, {"mgr": "Hayden", "rank": 11, "rec": "2-4", "pf": 654.5, "last3": 129.3, "score": -0.85}, {"mgr": "Jake", "rank": 12, "rec": "0-6", "pf": 639.6, "last3": 98.9, "score": -1.94}], "playoff": [{"mgr": "Oz", "odds": 96.0}, {"mgr": "CB", "odds": 90.4}, {"mgr": "Jarod", "odds": 86.6}, {"mgr": "J Ray", "odds": 81.0}, {"mgr": "Bo", "odds": 60.8}, {"mgr": "Jarvis", "odds": 49.1}, {"mgr": "Will", "odds": 48.2}, {"mgr": "Chris", "odds": 44.6}, {"mgr": "Brady", "odds": 21.2}, {"mgr": "Tobias", "odds": 18.3}, {"mgr": "Hayden", "odds": 3.7}, {"mgr": "Jake", "odds": 0.0}], "draftcards": [{"mgr": "Bo", "pts": 956.5, "best": {"name": "D'Andre Swift", "pts": 103.8, "rd": 4}}, {"mgr": "Will", "pts": 832.4, "best": {"name": "Jonathan Taylor", "pts": 118.5, "rd": 1}}, {"mgr": "Chris", "pts": 810.3, "best": {"name": "Christian Watson", "pts": 118.8, "rd": 7}}, {"mgr": "CB", "pts": 805.4, "best": {"name": "CeeDee Lamb", "pts": 131.1, "rd": 1}}, {"mgr": "J Ray", "pts": 744.3, "best": {"name": "Jaxon Smith-Njigba", "pts": 164.9, "rd": 1}}, {"mgr": "Jarod", "pts": 724.3, "best": {"name": "Kenneth Walker III", "pts": 138.0, "rd": 2}}, {"mgr": "Oz", "pts": 723.7, "best": {"name": "Bijan Robinson", "pts": 128.5, "rd": 1}}, {"mgr": "Jarvis", "pts": 672.1, "best": {"name": "Christian McCaffrey", "pts": 122.0, "rd": 1}}, {"mgr": "Hayden", "pts": 664.5, "best": {"name": "Ashton Jeanty", "pts": 100.4, "rd": 2}}, {"mgr": "Brady", "pts": 593.4, "best": {"name": "Jahmyr Gibbs", "pts": 153.7, "rd": 1}}, {"mgr": "Tobias", "pts": 491.9, "best": {"name": "Matthew Golden", "pts": 100.7, "rd": 6}}, {"mgr": "Jake", "pts": 464.8, "best": {"name": "Amon-Ra St. Brown", "pts": 104.2, "rd": 1}}], "steals": [{"name": "Isaiah Likely", "pos": "TE", "mgr": "Jarod", "rd": 12, "ov": 140, "pts": 109.3}, {"name": "Chuba Hubbard", "pos": "RB", "mgr": "CB", "rd": 10, "ov": 111, "pts": 98.1}, {"name": "Tre Tucker", "pos": "WR", "mgr": "Chris", "rd": 15, "ov": 179, "pts": 78.5}, {"name": "Denzel Boston", "pos": "WR", "mgr": "Will", "rd": 15, "ov": 174, "pts": 71.5}, {"name": "Aaron Jones Sr.", "pos": "RB", "mgr": "Will", "rd": 8, "ov": 91, "pts": 70.2}, {"name": "Stefon Diggs", "pos": "WR", "mgr": "Bo", "rd": 8, "ov": 93, "pts": 69.4}], "busts": [{"name": "A.J. Brown", "pos": "WR", "mgr": "Jake", "rd": 2, "ov": 18, "pts": 11.3}, {"name": "Jadarian Price", "pos": "RB", "mgr": "Jake", "rd": 5, "ov": 55, "pts": 14.0}, {"name": "Saquon Barkley", "pos": "RB", "mgr": "Tobias", "rd": 2, "ov": 13, "pts": 23.0}, {"name": "De'Von Achane", "pos": "RB", "mgr": "Tobias", "rd": 1, "ov": 12, "pts": 24.6}, {"name": "Marvin Harrison Jr.", "pos": "WR", "mgr": "Tobias", "rd": 5, "ov": 60, "pts": 25.9}, {"name": "TreVeyon Henderson", "pos": "RB", "mgr": "Tobias", "rd": 4, "ov": 37, "pts": 29.5}], "waivers": [{"mgr": "CB", "adds": 4}, {"mgr": "Hayden", "adds": 2}, {"mgr": "J Ray", "adds": 2}, {"mgr": "Jarod", "adds": 1}, {"mgr": "Oz", "adds": 1}, {"mgr": "Brady", "adds": 1}, {"mgr": "Tobias", "adds": 1}, {"mgr": "Will", "adds": 0}, {"mgr": "Chris", "adds": 0}, {"mgr": "Jarvis", "adds": 0}, {"mgr": "Bo", "adds": 0}, {"mgr": "Jake", "adds": 0}], "coach": {"CB": {"eff": 88.3, "left": 17.7, "wks": 32, "bySeason": {"2024": 86.1, "2025": 88.4, "2026": 93.2}}, "Hayden": {"eff": 85.0, "left": 23.9, "wks": 32, "bySeason": {"2024": 83.1, "2025": 89.1, "2026": 79.9}}, "Will": {"eff": 87.6, "left": 18.0, "wks": 32, "bySeason": {"2024": 91.4, "2025": 86.1, "2026": 82.2}}, "Jarod": {"eff": 87.1, "left": 17.4, "wks": 32, "bySeason": {"2024": 85.1, "2025": 88.9, "2026": 87.2}}, "Chris": {"eff": 86.5, "left": 20.0, "wks": 32, "bySeason": {"2024": 86.2, "2025": 87.6, "2026": 84.9}}, "Jarvis": {"eff": 88.2, "left": 16.2, "wks": 32, "bySeason": {"2024": 90.6, "2025": 85.4, "2026": 89.8}}, "Oz": {"eff": 90.1, "left": 14.2, "wks": 32, "bySeason": {"2024": 90.2, "2025": 88.4, "2026": 93.9}}, "J Ray": {"eff": 88.7, "left": 15.6, "wks": 32, "bySeason": {"2024": 89.5, "2025": 86.9, "2026": 90.7}}, "Bo": {"eff": 87.1, "left": 18.8, "wks": 32, "bySeason": {"2024": 86.3, "2025": 88.3, "2026": 86.6}}, "Brady": {"eff": 86.1, "left": 18.5, "wks": 32, "bySeason": {"2024": 81.7, "2025": 90.3, "2026": 87.3}}, "Tobias": {"eff": 90.8, "left": 11.7, "wks": 32, "bySeason": {"2024": 89.7, "2025": 92.4, "2026": 89.6}}, "Jake": {"eff": 88.1, "left": 18.0, "wks": 19, "bySeason": {"2025": 88.9, "2026": 85.9}}}, "records2026": {"CB": "4-2", "Hayden": "2-4", "Will": "3-3", "Jarod": "4-2", "Chris": "3-3", "Jarvis": "4-2", "Oz": "5-1", "J Ray": "4-2", "Bo": "2-4", "Brady": "2-4", "Tobias": "3-3", "Jake": "0-6"}, "txcount": {"CB": {"acq": 27, "trades": 3, "drops": 23, "ir": 4, "act": 39}, "J Ray": {"acq": 10, "trades": 0, "drops": 8, "ir": 2, "act": 25}, "Bo": {"acq": 2, "trades": 0, "drops": 2, "ir": 2, "act": 12}, "Chris": {"acq": 15, "trades": 0, "drops": 16, "ir": 0, "act": 35}, "Jarod": {"acq": 6, "trades": 0, "drops": 6, "ir": 0, "act": 10}, "Tobias": {"acq": 6, "trades": 0, "drops": 7, "ir": 0, "act": 24}, "Brady": {"acq": 16, "trades": 5, "drops": 17, "ir": 3, "act": 69}, "Will": {"acq": 2, "trades": 0, "drops": 1, "ir": 1, "act": 12}, "Jarvis": {"acq": 2, "trades": 1, "drops": 2, "ir": 2, "act": 4}, "Hayden": {"acq": 8, "trades": 0, "drops": 6, "ir": 2, "act": 18}, "Oz": {"acq": 9, "trades": 1, "drops": 8, "ir": 3, "act": 46}, "Jake": {"acq": 7, "trades": 2, "drops": 5, "ir": 7, "act": 22}}, "trades": [{"date": "Sep 16", "wk": 3, "byLM": true, "sides": [{"mgr": "CB", "team": "CB BY 90", "get": ["Jahmyr Gibbs", "Jordan Addison"], "haul": 96.8, "detail": [["Jahmyr Gibbs", 96.8], ["Jordan Addison", 0.0]]}, {"mgr": "Brady", "team": "SoggyBottomBoyz", "get": ["Tee Higgins", "MarShawn Lloyd", "CeeDee Lamb"], "haul": 147.7, "detail": [["Tee Higgins", 51.9], ["MarShawn Lloyd", 31.4], ["CeeDee Lamb", 64.4]]}], "leader": "Brady"}, {"date": "Sep 26", "wk": 4, "byLM": false, "sides": [{"mgr": "CB", "team": "CB BY 90", "get": ["Brock Purdy", "A.J. Brown"], "haul": 53.1, "detail": [["Brock Purdy", 53.1], ["A.J. Brown", 0.0]]}, {"mgr": "Jake", "team": "Thai spinners", "get": ["Jordan Addison", "Joe Burrow"], "haul": 57.4, "detail": [["Jordan Addison", 9.1], ["Joe Burrow", 48.3]]}], "leader": "Jake"}, {"date": "Oct 2", "wk": 5, "byLM": false, "sides": [{"mgr": "CB", "team": "CB BY 90", "get": ["Brock Bowers"], "haul": 34.0, "detail": [["Brock Bowers", 34.0]]}, {"mgr": "Brady", "team": "SoggyBottomBoyz", "get": ["A.J. Brown", "Evan McPherson", "Chuba Hubbard"], "haul": 12.7, "detail": [["A.J. Brown", 5.7], ["Evan McPherson", 7.0], ["Chuba Hubbard", 0.0]]}], "leader": "CB"}, {"date": "Oct 8", "wk": 6, "byLM": false, "sides": [{"mgr": "Oz", "team": "Olave Garden", "get": ["Jeremiyah Love", "Zay Flowers"], "haul": 12.7, "detail": [["Jeremiyah Love", 0.0], ["Zay Flowers", 12.7]]}, {"mgr": "Brady", "team": "SoggyBottomBoyz", "get": ["J.K. Dobbins", "Davante Adams", "Javonte Williams"], "haul": 19.9, "detail": [["J.K. Dobbins", 0.0], ["Davante Adams", 6.9], ["Javonte Williams", 13.0]]}], "leader": "Brady"}, {"date": "Oct 14", "wk": 7, "byLM": false, "sides": [{"mgr": "Brady", "team": "SoggyBottomBoyz", "get": ["George Kittle", "Cam Skattebo", "Amon-Ra St. Brown", "Joe Burrow"], "haul": 0.0, "detail": [["George Kittle", 0.0], ["Cam Skattebo", 0.0], ["Amon-Ra St. Brown", 0.0], ["Joe Burrow", 0.0]]}, {"mgr": "Jake", "team": "Thai spinners", "get": ["Chuba Hubbard", "Jared Goff", "CeeDee Lamb", "J.K. Dobbins"], "haul": 0.0, "detail": [["Chuba Hubbard", 0.0], ["Jared Goff", 0.0], ["CeeDee Lamb", 0.0], ["J.K. Dobbins", 0.0]]}], "leader": null}]};
+const M=[
+ {id:"cb",name:"CB",team:"CB BY 90",fan:"Saints",wolf:true,w:34,l:10,titles:0,best:"12-1 (’23)",bl:"Commissioner “Chasenstein,” finance bro. Winningest manager alive — still ringless."},
+ {id:"hayden",name:"Hayden",team:"CrustY DusterZ",fan:"Lions",wolf:false,w:30,l:14,titles:1,best:"11-2 (’24)",bl:"National-champ wrestler. 2023 champion."},
+ {id:"will",name:"Will",team:"Team Parish",fan:"",wolf:false,w:26,l:18,titles:1,best:"10-3 (’24)",bl:"Reigning 2025 champion. Frat-house energy."},
+ {id:"jarod",name:"Jarod",team:"Hung Like a Bronco",fan:"",wolf:false,w:24,l:20,titles:0,best:"9-4 (’23)",bl:"Speaks fluent corporate. Timeshare in Tel Aviv. Forgets his lineup."},
+ {id:"chris",name:"Chris",team:"Jawbreaker",fan:"",wolf:false,w:22,l:22,titles:1,best:"7-6 (’24)",bl:"The dentist — and the Commissioner’s dad. Won 2024 at 7-6."},
+ {id:"jarvis",name:"Jarvis",team:"Bones",fan:"",wolf:false,w:21,l:23,titles:0,best:"7-6 (’23)",bl:"Still makes 125. A 20-minute story about every waiver claim."},
+ {id:"oz",name:"Oz",team:"Olave Garden",fan:"Colts",wolf:false,w:19,l:25,titles:0,best:"8-4 (’25)",bl:"Deputy Commissioner, electrician. Opened 0-13; leads 2026 at 5-1."},
+ {id:"jray",name:"J Ray",team:"J.RayyyyBaby",fan:"Bengals",wolf:true,w:19,l:25,titles:0,best:"7-6 (’24)",bl:"High-school coach out of Peru, Indiana. Runs gassers after a loss."},
+ {id:"bo",name:"Bo",team:"Big Wolf",fan:"Steelers",wolf:true,w:17,l:27,titles:0,best:"5-7 (’25)",bl:"Two-time national champ wrestler. The “little wolf.” Leads 2026 in points."},
+ {id:"brady",name:"Brady",team:"SoggyBottomBoyz",fan:"Bengals",wolf:false,w:16,l:28,titles:0,best:"5-7 (’25)",bl:"Never met a lopsided trade he didn’t like."},
+ {id:"tobias",name:"Tobias",team:"Diggs in his Booty",fan:"",wolf:false,w:14,l:30,titles:0,best:"4-9 (’23)",bl:"BJJ convert. Worst all-time record, but the league’s best lineup-setter."},
+ {id:"jake",name:"Jake",team:"Thai Spinners",fan:"",wolf:false,w:8,l:10,titles:0,best:"8-4 (’25)",bl:"Newest blood (2025), reformed-ish gambler. Third as a rookie."},
+];
+const NAMES=M.map(m=>m.name);
+const MID={};M.forEach(m=>MID[m.name]=m.id);
+const BYID={};M.forEach(m=>BYID[m.id]=m);
+
+const SEASONS={
+ 2022:{memorial:true,champ:"Max Emerson",note:"The founding season. Max Emerson — founder and first commissioner — won the inaugural title. His full records were lost after he passed, and the championship has carried his name ever since."},
+ 2023:{champ:"Hayden",note:"CB went 12-1 and lost in the playoffs — the first of back-to-back runner-up finishes. Oz debuted at 0-13.",podium:[["Hayden","CrustY DusterZ"],["CB","CB BY 90"],["Jarod","Team Slather"]],rows:[[1,"CrustY DusterZ","Hayden","9-4",1],[2,"CB BY 90","CB","12-1",0],[3,"Team Slather","Jarod","9-4",0],[4,"Team Mcnutt","Rina Mcnutt ·fmr","10-3",0],[5,"Jawbreaker","Chris","6-7",0],[6,"Team Orum","Bo","5-8",0],[7,"Bones","Jarvis","7-6",0],[8,"J.RayyyyBaby","J Ray","5-8",0],[9,"The Home Deebo","Oz","0-13",0],[10,"Team Parish","Will","6-7",0],[11,"Diggs in his booty","Tobias","4-9",0],[12,"Team Emerson","Brady","5-8",0]]},
+ 2024:{champ:"Chris",note:"Chris won it all at 7-6 — the lowest title-winning record in league history — while CB again finished runner-up at 11-2.",podium:[["Chris","Jawbreaker"],["CB","CB BY 90"],["Hayden","CrustY DusterZ"]],rows:[[1,"Jawbreaker","Chris","7-6",1],[2,"CB BY 90","CB","11-2",0],[3,"CrustY DusterZ","Hayden","11-2",0],[4,"Team Parish","Will","10-3",0],[5,"Rice, Rice Baby","Oz","6-7",0],[6,"Bones","Jarvis","5-8",0],[7,"J.RayyyyBaby","J Ray","7-6",0],[8,"Billy’s GOATS","Billy Jarvis ·fmr","4-9",0],[9,"Big Wolf","Bo","5-8",0],[10,"SoggyBottomBoyz","Brady","4-9",0],[11,"Hung Just Like a Bronco","Jarod","4-9",0],[12,"Diggs in his booty","Tobias","4-9",0]]},
+ 2025:{champ:"Will",note:"Will broke through for his first ring. Hayden was runner-up again; rookie Jake grabbed third. J Ray cratered to 3-9.",podium:[["Will","Team Parish"],["Hayden","CrustY DusterZ"],["Jake","Thai spinners"]],rows:[[1,"Team Parish","Will","7-5",1],[2,"CrustY DusterZ","Hayden","8-4",0],[3,"Thai spinners","Jake","8-4",0],[4,"LaPorta Potty","Oz","8-4",0],[5,"Hung Like a Bronco","Jarod","7-5",0],[6,"CB BY 90","CB","7-5",0],[7,"Jawbreaker","Chris","6-6",0],[8,"Big Wolf","Bo","5-7",0],[9,"Bones","Jarvis","5-7",0],[10,"SoggyBottomBoyz","Brady","5-7",0],[11,"Diggs in his booty","Tobias","3-9",0],[12,"J.RayyyyBaby","J Ray","3-9",0]]},
+ 2026:{champ:null,note:"In progress — through Week 6, ordered by record then points-for. Oz leads; Bo is 2-4 but tops the league in total points.",podium:null,rows:[[1,"Olave Garden","Oz","5-1",0],[2,"CB BY 90","CB","4-2",0],[3,"Hung Like a Bronco","Jarod","4-2",0],[4,"J Ray Baby","J Ray","4-2",0],[5,"Bones","Jarvis","4-2",0],[6,"Jawbreaker","Chris","3-3",0],[7,"Team Parish","Will","3-3",0],[8,"Diggs in his Booty","Tobias","3-3",0],[9,"Big Wolf","Bo","2-4",0],[10,"SoggyBottomBoyz","Brady","2-4",0],[11,"CrustY DusterZ","Hayden","2-4",0],[12,"Thai Spinners","Jake","0-6",0]]},
+};
+const CHAMPS=[{yr:2022,m:"Max Emerson",t:"Founder & first champion",r:"The inaugural title. The trophy bears his name.",max:true},{yr:2023,m:"Hayden",t:"CrustY DusterZ",r:"National-champ wrestler’s first ring"},{yr:2024,m:"Chris",t:"Jawbreaker",r:"7-6 · lowest title-winning record ever"},{yr:2025,m:"Will",t:"Team Parish",r:"7-5 · broke through for his first"},{yr:2026,m:null,t:null,r:"Week 7 underway"}];
+const SCOREYR={"2023":{"CB":{"pf":1739.6,"pa":1330.7,"w":12,"l":1,"apw":106,"apl":23},"Hayden":{"pf":1579.4,"pa":1405.1,"w":9,"l":4,"apw":83,"apl":47},"Will":{"pf":1529.6,"pa":1575.6,"w":6,"l":7,"apw":72,"apl":58},"Jarod":{"pf":1481.4,"pa":1357.8,"w":9,"l":4,"apw":66,"apl":64},"Chris":{"pf":1441.4,"pa":1485.2,"w":6,"l":7,"apw":62,"apl":67},"Jarvis":{"pf":1450.2,"pa":1554.2,"w":7,"l":6,"apw":73,"apl":57},"Oz":{"pf":1316.1,"pa":1628.5,"w":0,"l":13,"apw":43,"apl":87},"J Ray":{"pf":1397.3,"pa":1444.9,"w":5,"l":8,"apw":57,"apl":73},"Bo":{"pf":1408.2,"pa":1565.2,"w":5,"l":8,"apw":61,"apl":69},"Brady":{"pf":1375.2,"pa":1526.9,"w":5,"l":8,"apw":54,"apl":76},"Tobias":{"pf":1299.6,"pa":1387.0,"w":4,"l":9,"apw":37,"apl":93}},"2024":{"CB":{"pf":1720.1,"pa":1484.1,"w":11,"l":2,"apw":75,"apl":55},"Hayden":{"pf":1873.3,"pa":1479.9,"w":11,"l":2,"apw":99,"apl":31},"Will":{"pf":1786.6,"pa":1605.3,"w":10,"l":3,"apw":86,"apl":44},"Jarod":{"pf":1400.2,"pa":1577.6,"w":4,"l":9,"apw":33,"apl":97},"Chris":{"pf":1764.0,"pa":1735.0,"w":7,"l":6,"apw":77,"apl":52},"Jarvis":{"pf":1617.3,"pa":1720.9,"w":5,"l":8,"apw":64,"apl":66},"Oz":{"pf":1622.3,"pa":1658.5,"w":6,"l":7,"apw":58,"apl":72},"J Ray":{"pf":1591.9,"pa":1605.4,"w":7,"l":6,"apw":62,"apl":67},"Bo":{"pf":1599.0,"pa":1605.6,"w":5,"l":8,"apw":63,"apl":67},"Brady":{"pf":1431.0,"pa":1623.0,"w":4,"l":9,"apw":41,"apl":89},"Tobias":{"pf":1508.5,"pa":1711.5,"w":4,"l":9,"apw":56,"apl":74}},"2025":{"CB":{"pf":1591.5,"pa":1547.0,"w":7,"l":5,"apw":75,"apl":57},"Hayden":{"pf":1632.6,"pa":1552.9,"w":8,"l":4,"apw":83,"apl":49},"Will":{"pf":1378.3,"pa":1345.5,"w":7,"l":5,"apw":59,"apl":73},"Jarod":{"pf":1414.3,"pa":1287.1,"w":7,"l":5,"apw":49,"apl":83},"Chris":{"pf":1435.3,"pa":1515.1,"w":6,"l":6,"apw":63,"apl":69},"Jarvis":{"pf":1457.2,"pa":1540.0,"w":5,"l":7,"apw":64,"apl":68},"Oz":{"pf":1616.5,"pa":1445.3,"w":8,"l":4,"apw":86,"apl":46},"J Ray":{"pf":1401.2,"pa":1712.7,"w":3,"l":9,"apw":49,"apl":83},"Bo":{"pf":1479.9,"pa":1615.9,"w":5,"l":7,"apw":71,"apl":61},"Brady":{"pf":1359.8,"pa":1430.0,"w":5,"l":7,"apw":48,"apl":84},"Tobias":{"pf":1370.5,"pa":1515.3,"w":3,"l":9,"apw":46,"apl":86},"Jake":{"pf":1802.3,"pa":1433.0,"w":8,"l":4,"apw":99,"apl":33}},"2026":{"CB":{"pf":847.3,"pa":717.1,"w":4,"l":2,"apw":43,"apl":23},"Hayden":{"pf":654.5,"pa":672.9,"w":2,"l":4,"apw":25,"apl":41},"Will":{"pf":753.0,"pa":752.1,"w":3,"l":3,"apw":30,"apl":36},"Jarod":{"pf":816.5,"pa":826.2,"w":4,"l":2,"apw":40,"apl":26},"Chris":{"pf":756.3,"pa":741.0,"w":3,"l":3,"apw":33,"apl":33},"Jarvis":{"pf":699.4,"pa":708.8,"w":4,"l":2,"apw":27,"apl":39},"Oz":{"pf":811.4,"pa":700.0,"w":5,"l":1,"apw":42,"apl":24},"J Ray":{"pf":791.8,"pa":700.5,"w":4,"l":2,"apw":38,"apl":28},"Bo":{"pf":850.4,"pa":887.3,"w":2,"l":4,"apw":48,"apl":18},"Brady":{"pf":743.1,"pa":845.9,"w":2,"l":4,"apw":28,"apl":38},"Tobias":{"pf":682.5,"pa":666.3,"w":3,"l":3,"apw":24,"apl":42},"Jake":{"pf":639.6,"pa":827.7,"w":0,"l":6,"apw":18,"apl":48}}};
+const YEARS_AVAIL=["2023","2024","2025","2026"];
+const STATS={"top":[["CB",2026,5,208.36],["Jake",2025,8,196.16],["Jake",2025,2,193.14],["Brady",2026,4,190.98],["Jarod",2026,1,189.72],["Jarvis",2024,12,189.36],["Chris",2024,8,185.94],["Will",2024,4,182.44],["Hayden",2025,6,180.98],["Chris",2024,9,179.0]],"low":[["Tobias",2023,10,47.4],["Jarvis",2025,7,50.14],["Brady",2023,10,52.5],["Will",2025,12,60.62],["Tobias",2023,9,67.12],["Jarvis",2023,10,67.24],["Bo",2025,8,67.58],["Hayden",2026,3,68.46]],"streaks":{"CB":{"win":10,"loss":3,"cur":"W4"},"Hayden":{"win":12,"loss":3,"cur":"W1"},"Will":{"win":7,"loss":4,"cur":"L1"},"Jarod":{"win":5,"loss":5,"cur":"W3"},"Chris":{"win":5,"loss":8,"cur":"W1"},"Jarvis":{"win":4,"loss":5,"cur":"L1"},"Oz":{"win":6,"loss":14,"cur":"L1"},"J Ray":{"win":3,"loss":5,"cur":"L1"},"Bo":{"win":3,"loss":3,"cur":"W1"},"Brady":{"win":2,"loss":6,"cur":"L2"},"Tobias":{"win":3,"loss":5,"cur":"W1"},"Jake":{"win":3,"loss":6,"cur":"L6"}}};
+const H2H={"CB":{"Hayden":1,"Will":5,"Jarod":3,"Chris":2,"Jarvis":4,"Oz":2,"J Ray":4,"Bo":4,"Brady":5,"Tobias":3,"Jake":1},"Hayden":{"CB":3,"Will":2,"Jarod":4,"Chris":6,"Jarvis":2,"Oz":3,"J Ray":5,"Bo":2,"Brady":2,"Tobias":3,"Jake":1},"Will":{"CB":1,"Hayden":4,"Jarod":3,"Chris":1,"Jarvis":1,"Oz":4,"J Ray":3,"Bo":4,"Brady":2,"Tobias":3,"Jake":2},"Jarod":{"CB":3,"Hayden":0,"Will":2,"Chris":2,"Jarvis":2,"Oz":3,"J Ray":1,"Bo":3,"Brady":4,"Tobias":4,"Jake":1},"Chris":{"CB":3,"Hayden":2,"Will":2,"Jarod":2,"Jarvis":2,"Oz":3,"J Ray":3,"Bo":5,"Brady":2,"Tobias":3,"Jake":0},"Jarvis":{"CB":0,"Hayden":1,"Will":3,"Jarod":1,"Chris":4,"Oz":2,"J Ray":4,"Bo":3,"Brady":2,"Tobias":4,"Jake":1},"Oz":{"CB":1,"Hayden":2,"Will":4,"Jarod":2,"Chris":2,"Jarvis":2,"J Ray":2,"Bo":2,"Brady":2,"Tobias":3,"Jake":0},"J Ray":{"CB":2,"Hayden":1,"Will":0,"Jarod":3,"Chris":0,"Jarvis":2,"Oz":2,"Bo":2,"Brady":3,"Tobias":3,"Jake":1},"Bo":{"CB":0,"Hayden":1,"Will":1,"Jarod":1,"Chris":1,"Jarvis":3,"Oz":2,"J Ray":1,"Brady":6,"Tobias":2,"Jake":2},"Brady":{"CB":0,"Hayden":1,"Will":1,"Jarod":2,"Chris":2,"Jarvis":3,"Oz":1,"J Ray":2,"Bo":0,"Tobias":3,"Jake":2},"Tobias":{"CB":0,"Hayden":1,"Will":1,"Jarod":2,"Chris":1,"Jarvis":2,"Oz":2,"J Ray":2,"Bo":2,"Brady":3,"Jake":0},"Jake":{"CB":1,"Hayden":1,"Will":0,"Jarod":0,"Chris":1,"Jarvis":1,"Oz":2,"J Ray":1,"Bo":1,"Brady":0,"Tobias":1}};
+const RIVALRIES=[{a:"Hayden",b:"CB",title:"Hayden vs CB",note:"Hayden owns the Commissioner — including the 2023 championship, 291.9–252.0, and both their Week 7 meetings. CB’s white whale."},{a:"Chris",b:"CB",title:"Dad vs Son",note:"The Commissioner still can’t solve his own father head-to-head."},{a:"CB",b:"J Ray",title:"CB vs J Ray",note:"Wolfpack brothers — always a one-score coaching battle."},{a:"Jarvis",b:"Chris",title:"Jarvis vs Chris",note:"Bad blood since Chris vetoed a Jarvis trade. Never healed."},{a:"Bo",b:"Brady",title:"Bo vs Brady",note:"Total ownership — the most lopsided pairing in the league."},{wolfpack:true,members:["CB","J Ray","Bo"],title:"Wolfpack: Big Wolf",note:"CB, J Ray & Bo are the Wolf House roommates. Record within the pack —"}];
+const RECORDS=[{k:"34-10",m:"Winningest",t:"CB — .773, zero rings"},{k:"208.4",m:"Single-week record",t:"CB, 2026 Week 5"},{k:"12",m:"Longest win streak",t:"Hayden"},{k:"14",m:"Longest skid",t:"Oz — the 0-13 year"},{k:"Bo",m:"Unluckiest",t:"6th in points, 17-27 record"},{k:"0-13",m:"Worst season",t:"Oz, 2023"},{k:"7-6",m:"Flukiest title",t:"Chris, 2024"},{k:"12-1",m:"Best season",t:"CB, 2023"}];
+const EPISODES=[{wk:6,d:"Big Wolf’s league-high 154.8, Chris leaving 34 on the bench and winning anyway, and a eulogy for 0-6 Jake.",audio:"audio/week6.mp3"},{wk:5,d:"CB’s 208.4 — the single-week scoring record — tops a loaded Week 5 slate.",audio:"audio/week5.mp3"},{wk:4,d:"Brady’s 191-point eruption headlines the Week 4 beatdowns.",audio:"audio/week4.mp3"},{wk:3,audio:null},{wk:2,audio:null},{wk:1,audio:null}];
+const WAIVERS=[{name:"C.J. Stroud",pos:"QB",mgr:"Jarod",pts:112.2},{name:"Kirk Cousins",pos:"QB",mgr:"Brady",pts:111.1},{name:"Devaughn Vele",pos:"WR",mgr:"Hayden",pts:69.4},{name:"Keon Coleman",pos:"WR",mgr:"Oz",pts:65.3},{name:"Pat Freiermuth",pos:"TE",mgr:"Will",pts:63.4},{name:"Sam Darnold",pos:"QB",mgr:"J Ray",pts:60.8},{name:"Michael Mayer",pos:"TE",mgr:"Brady",pts:60.6},{name:"DeMario Douglas",pos:"WR",mgr:"Brady",pts:59.3},{name:"Emanuel Wilson",pos:"RB",mgr:"Jarod",pts:56.3},{name:"Kalif Raymond",pos:"WR",mgr:"Jake",pts:56.2},{name:"Dontayvion Wicks",pos:"WR",mgr:"Oz",pts:53.4},{name:"Tyler Higbee",pos:"TE",mgr:"Jake",pts:50.6},{name:"Malik Washington",pos:"WR",mgr:"CB",pts:50.2},{name:"Ollie Gordon II",pos:"RB",mgr:"Tobias",pts:48.0},{name:"Kendrick Bourne",pos:"WR",mgr:"Tobias",pts:44.5},{name:"Darren Waller",pos:"TE",mgr:"Oz",pts:39.8},{name:"Kimani Vidal",pos:"RB",mgr:"Jarvis",pts:34.2},{name:"Kendre Miller",pos:"RB",mgr:"J Ray",pts:32.8}];
+
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const pctStr=v=>(v<0?"-":"")+Math.abs(v).toFixed(3).replace(/^0/,'');
+const pct2=v=>v.toFixed(2).replace(/^0/,'');
+const pctv=(w,l)=>(w+l)?w/(w+l):0;
+const ml=n=>`<a class="mlink" href="#m_${MID[n]}">${esc(n)}</a>`;
+
+/* ---------- TABS + routing ---------- */
+const TABS=[["thisweek","This Week"],["podcast","Podcast"],["history","History"],["analytics","Analytics"],["managers","Managers"]];
+function buildTabs(){document.getElementById("tabnav").innerHTML=TABS.map(t=>`<button data-tab="${t[0]}">${t[1]}</button>`).join("");
+  document.querySelectorAll("#tabnav button").forEach(b=>b.addEventListener("click",()=>{location.hash=b.dataset.tab;}));}
+function showTab(name){document.querySelectorAll(".tabpane").forEach(p=>p.classList.toggle("active",p.id==="tab-"+name));
+  document.querySelectorAll("#tabnav button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.tab===name));
+  window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});}
+function route(){let h="";try{h=(location.hash||"").replace("#","");}catch(e){}
+  if(h.startsWith("m_")){const id=h.slice(2);if(BYID[id]){showTab("managers");openProfile(id);return;}}
+  const tabs=TABS.map(t=>t[0]);
+  const name=tabs.includes(h)?h:"thisweek";
+  showTab(name); if(name==="managers")closeProfile();}
+window.addEventListener("hashchange",route);
+
+/* ---------- THIS WEEK ---------- */
+function teamRow(t){return `<div class="grow"><div><div class="tm">${esc(t.team)}</div><div class="mn">${ml(t.mgr)}</div></div><div class="rc">${t.rec}</div></div>`;}
+document.getElementById("sbGames").innerHTML=SD.thisWeek.games.map(g=>`<div class="game">${teamRow(g.away)}${teamRow(g.home)}</div>`).join("");
+document.getElementById("sbNote").textContent=`Week ${SD.thisWeek.week} matchups · updates as games finish`;
+const aw=SD.lastWeek.awards;
+document.getElementById("awNote").textContent=`Week ${SD.lastWeek.week}`;
+document.getElementById("awGrid").innerHTML=[
+ ["🐕","Big Dog",ml(aw.bigdog.mgr),aw.bigdog.pts+" pts"],
+ ["🤡","Clown Show",ml(aw.clown.mgr),aw.clown.pts+" pts"],
+ ["🪑","Benchastrophe",ml(aw.bench.mgr),aw.bench.left+" left on bench"],
+ ["💥","Blowout",ml(aw.blowout.winner),`by ${aw.blowout.margin} (${aw.blowout.ws}–${aw.blowout.ls})`],
+ ["😅","Nail-biter",ml(aw.nailbiter.winner),`by ${aw.nailbiter.margin} over ${ml(aw.nailbiter.loser)}`],
+].map(a=>`<div class="award"><div class="ic">${a[0]}</div><div class="t">${a[1]}</div><div class="w">${a[2]}</div><div class="d">${a[3]}</div></div>`).join("");
+document.querySelector("#powerTable tbody").innerHTML=SD.power.map(p=>`<tr><td class="rank">${p.rank}</td><td>${ml(p.mgr)}</td><td class="num wl"><b>${p.rec.split("-")[0]}</b>–<i>${p.rec.split("-")[1]}</i></td><td class="num">${p.pf.toFixed(0)}</td><td class="num">${p.last3.toFixed(1)}</td></tr>`).join("");
+const pomax=Math.max(...SD.playoff.map(p=>p.odds))||100;
+document.getElementById("poBars").innerHTML=SD.playoff.map(p=>`<div class="bar"><div class="nm">${ml(p.mgr)}</div><div class="track"><div class="fill" style="width:${Math.max(2,p.odds/pomax*100)}%;background:${p.odds>=50?'var(--win)':p.odds>=15?'var(--gold)':'var(--loss)'}"></div></div><div class="v">${p.odds}%</div></div>`).join("");
+function renderPods(){document.getElementById("pods").innerHTML=EPISODES.map(e=>{
+  const desc=e.d||"The full weekly recap show — audio coming soon.";
+  const player=e.audio?`<audio controls preload="none" src="${esc(e.audio)}" style="margin-top:9px;width:100%;max-width:440px"></audio>`:`<span class="chip" style="margin-top:9px;display:inline-block">🎧 Audio coming soon</span>`;
+  return `<div class="ep"><span class="ico">🎙️</span><div style="flex:1;min-width:0"><b>Week ${e.wk} Recap</b><p>${esc(desc)}</p>${player}</div></div>`;}).join("");}
+renderPods();
+
+/* ---------- HISTORY: all-time ---------- */
+let sortKey="pct",sortDir=-1;
+function renderAll(){const rows=[...M].map(m=>({...m,p:pctv(m.w,m.l)}));
+  rows.sort((a,b)=>{let av,bv;if(sortKey==="pct"){av=a.p;bv=b.p;}else if(sortKey==="w"){av=a.w;bv=b.w;}else if(sortKey==="l"){av=a.l;bv=b.l;}else{av=a.titles;bv=b.titles;}return av!==bv?(av-bv)*sortDir:b.p-a.p;});
+  document.querySelector("#allTable tbody").innerHTML=rows.map((m,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(m.name)}${m.wolf?' <span class="chip">🐺</span>':''}<div class="sub">${esc(m.team)}</div></td><td class="num" style="color:var(--win);font-weight:700">${m.w}</td><td class="num" style="color:var(--loss)">${m.l}</td><td class="num pct">${pctStr(m.p)}</td><td class="num">${m.titles?'<span class="trophy">'+'🏆'.repeat(m.titles)+'</span>':'<span class="sub">—</span>'}</td><td class="num sub">${esc(m.best)}</td></tr>`).join("");
+  document.querySelectorAll("#allTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===sortKey){const s=document.createElement("span");s.className="arrow";s.textContent=sortDir<0?" ▼":" ▲";th.appendChild(s);}});}
+document.querySelectorAll("#allTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===sortKey)sortDir*=-1;else{sortKey=k;sortDir=(k==="l")?1:-1;}renderAll();}));
+
+/* seasons */
+const YEARS=[2022,2023,2024,2025,2026];let curYear=2026;
+function renderYears(){document.getElementById("years").innerHTML=YEARS.map(y=>`<button data-y="${y}" aria-pressed="${y===curYear}">${y}</button>`).join("");
+  document.querySelectorAll("#years button").forEach(b=>b.addEventListener("click",()=>{curYear=+b.dataset.y;renderSeason();}));}
+function renderSeason(){const s=SEASONS[curYear];
+  document.querySelectorAll("#years button").forEach(b=>b.setAttribute("aria-pressed",(+b.dataset.y===curYear)));
+  const pod=document.getElementById("podium"),wrap=document.getElementById("seasonTableWrap");
+  if(s.memorial){pod.hidden=false;wrap.hidden=true;pod.innerHTML=`<div class="pod first solo"><span class="medal trophy">🏆</span><div><div class="ph">Inaugural Champion · 2022</div><div class="pm">${esc(s.champ)}</div><div class="pt">Founder & first commissioner — the trophy’s namesake</div></div></div>`;document.getElementById("seasonNote").textContent=s.note;return;}
+  wrap.hidden=false;
+  if(s.podium){const md=["🥇","🥈","🥉"],lb=["Champion","Runner-up","Third"],cl=["first","",""];pod.hidden=false;pod.innerHTML=s.podium.map((p,i)=>`<div class="pod ${cl[i]}"><div class="medal">${md[i]}</div><div class="ph">${lb[i]}</div><div class="pm">${ml(p[0])}</div><div class="pt">${esc(p[1])}</div></div>`).join("");}else{pod.hidden=true;pod.innerHTML="";}
+  document.querySelector("#seasonTable tbody").innerHTML=s.rows.map(r=>{const[pl,tm,mg,rec,ch]=r;const fmr=/·fmr/.test(mg);const mn=mg.replace(" ·fmr","");const[w,l]=rec.split("-");return `<tr><td class="rank">${pl}${ch?' <span class="trophy">🏆</span>':''}</td><td class="mgr">${esc(tm)}</td><td>${fmr?esc(mn)+' <span class="chip">former</span>':ml(mn)}</td><td class="num wl"><b>${w}</b>–<i>${l}</i></td></tr>`;}).join("");
+  document.getElementById("seasonNote").textContent=s.note;}
+document.getElementById("champs").innerHTML=CHAMPS.map(c=>c.m?`<div class="card ca${c.max?' max':''}"><div class="yr">${c.yr}</div><div class="trophy" style="font-size:1.3rem">🏆</div><div class="cm">${c.max?esc(c.m):ml(c.m)}</div><div class="ct">${esc(c.t)}</div><div class="cr">${esc(c.r)}</div></div>`:`<div class="card ca tbd"><div class="yr">${c.yr}</div><div class="cm">Up for grabs</div><div class="ct">${esc(c.r)}</div></div>`).join("");
+document.getElementById("records-grid").innerHTML=RECORDS.map(r=>`<div class="card ca"><div class="yr" style="color:var(--gold)">${esc(r.k)}</div><div class="cm">${esc(r.m)}</div><div class="ct">${esc(r.t)}</div></div>`).join("");
+function sline(row,hi){const[m,yr,wk,p]=row;return `<div class="scoreline ${hi?'hi':'lo'}"><span class="s">${p.toFixed(1)}</span><span class="who">${ml(m)}</span><span class="mi">${yr} · Wk ${wk}</span></div>`;}
+document.getElementById("topWeeks").innerHTML=STATS.top.map(r=>sline(r,true)).join("");
+document.getElementById("lowWeeks").innerHTML=STATS.low.map(r=>sline(r,false)).join("");
+/* streaks */
+let strkSort="win",strkDir=-1;const curVal=c=>{const n=parseInt(c.slice(1))||0;return c[0]==="W"?n:-n;};
+function renderStreaks(){const rows=NAMES.map(m=>({m,...STATS.streaks[m]}));
+  rows.sort((a,b)=>{let av,bv;if(strkSort==="m")return a.m.localeCompare(b.m)*strkDir;if(strkSort==="win"){av=a.win;bv=b.win;}else if(strkSort==="loss"){av=a.loss;bv=b.loss;}else{av=curVal(a.cur);bv=curVal(b.cur);}return av!==bv?(av-bv)*strkDir:b.win-a.win;});
+  document.querySelector("#streakTable tbody").innerHTML=rows.map(r=>`<tr><td>${ml(r.m)}</td><td class="num"><span class="pos">${r.win}</span></td><td class="num"><span class="neg">${r.loss}</span></td><td class="num"><span class="${r.cur[0]==="W"?'pos':'neg'}">${esc(r.cur)}</span></td></tr>`).join("");
+  document.querySelectorAll("#streakTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===strkSort){const s=document.createElement("span");s.className="arrow";s.textContent=strkDir<0?" ▼":" ▲";th.appendChild(s);}});}
+document.querySelectorAll("#streakTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===strkSort)strkDir*=-1;else{strkSort=k;strkDir=(k==="m")?1:-1;}renderStreaks();}));
+
+/* ---------- ANALYTICS: h2h ---------- */
+function hget(a,b){return (H2H[a]&&H2H[a][b])||0;}
+let gridMode="wins";
+function renderMatrix(sa,sb){const head="<thead><tr><th></th>"+NAMES.map(m=>`<th>${esc(m)}</th>`).join("")+"</tr></thead>";
+  const body="<tbody>"+NAMES.map(a=>"<tr><th>"+esc(a)+"</th>"+NAMES.map(b=>{if(a===b)return '<td style="color:var(--line)">·</td>';const aw=hget(a,b),bw=hget(b,a),tot=aw+bw;const col=aw>bw?'var(--win)':aw<bw?'var(--loss)':'var(--muted)';const hl=((a===sa&&b===sb)||(a===sb&&b===sa))?';outline:2px solid var(--gold);outline-offset:-2px':'';const val=gridMode==="pct"?(tot?Math.round(aw/tot*100)+'%':'—'):aw;return `<td style="color:${col};font-weight:${aw>bw?700:400}${hl}">${val}</td>`;}).join("")+"</tr>").join("")+"</tbody>";
+  const t=document.getElementById("h2hMatrix");t.style.minWidth="880px";t.innerHTML=head+body;
+  document.getElementById("gridLegend").textContent=gridMode==="pct"?"Row’s win rate vs. each opponent. Green = winning record, red = losing, “—” = never met.":"Row’s total wins over each opponent. Green = leads the series.";}
+function renderH2HPair(){const a=document.getElementById("h2hA").value,b=document.getElementById("h2hB").value,aw=hget(a,b),bw=hget(b,a),total=aw+bw,el=document.getElementById("h2hResult");let line;
+  if(a===b)line='<div style="font-family:var(--display);font-size:1.4rem;font-weight:700">Pick two different managers.</div>';
+  else if(total===0)line=`<div style="font-family:var(--display);font-size:1.4rem;font-weight:700">${esc(a)} and ${esc(b)} <span style="color:var(--gold)">haven’t met since 2023</span></div>`;
+  else if(aw===bw)line=`<div style="font-family:var(--display);font-size:1.4rem;font-weight:700">${esc(a)} & ${esc(b)} are even <span style="color:var(--gold)">${aw}–${bw}</span></div>`;
+  else{const ld=aw>bw?a:b,tr=aw>bw?b:a,ls=Math.max(aw,bw),ts=Math.min(aw,bw);line=`<div style="font-family:var(--display);font-size:1.4rem;font-weight:700">${esc(ld)} leads ${esc(tr)} <span style="color:var(--gold)">${ls}–${ts}</span></div>`;}
+  el.innerHTML=line+`<small style="color:var(--muted);display:block;margin-top:5px">${total} meeting${total===1?'':'s'} since 2023 (reg. season + playoffs)</small>`;renderMatrix(a,b);}
+function initH2H(){const opts=NAMES.map(m=>`<option value="${esc(m)}">${esc(m)}</option>`).join("");const A=document.getElementById("h2hA"),B=document.getElementById("h2hB");A.innerHTML=opts;B.innerHTML=opts;A.value="Hayden";B.value="CB";A.addEventListener("change",renderH2HPair);B.addEventListener("change",renderH2HPair);
+  document.querySelectorAll("#gridToggle button").forEach(btn=>btn.addEventListener("click",()=>{gridMode=btn.dataset.m;document.querySelectorAll("#gridToggle button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.m===gridMode));renderH2HPair();}));renderH2HPair();}
+document.getElementById("rivs").innerHTML=RIVALRIES.map(r=>{if(r.wolfpack){const recs=r.members.map(m=>{let w=0,l=0;r.members.forEach(o=>{if(o!==m){w+=hget(m,o);l+=hget(o,m);}});return{m,w,l,p:pctv(w,l)};}).sort((a,b)=>b.p-a.p||b.w-a.w);const t=recs[0],list=recs.map(x=>`${esc(x.m)} ${x.w}–${x.l}`).join(" · ");return `<div class="card riv"><h3>${esc(r.title)}</h3><div class="score">${esc(t.m)} ${t.w}–${t.l} <span style="font-size:.85rem;color:var(--muted);font-weight:600">${pctStr(t.p)}</span></div><p>${esc(r.note)} ${list}. Big Wolf: <b style="color:var(--fg)">${esc(t.m)}</b>.</p></div>`;}const aw=hget(r.a,r.b),bw=hget(r.b,r.a);const ld=aw>=bw?r.a:r.b,hi=Math.max(aw,bw),lo=Math.min(aw,bw);return `<div class="card riv"><h3>${esc(r.title)}</h3><div class="score">${esc(ld)} ${hi}–${lo}</div><p>${esc(r.note)}</p></div>`;}).join("");
+
+/* coaching */
+let coachSort="eff",coachDir=-1;
+function renderCoach(){const rows=NAMES.filter(m=>SD.coach[m]).map(m=>({m,...SD.coach[m]}));
+  rows.sort((a,b)=>{let av,bv;if(coachSort==="eff"){av=a.eff;bv=b.eff;}else if(coachSort==="left"){av=a.left;bv=b.left;}else{const y=coachSort.slice(1);av=a.bySeason[y]??-1;bv=b.bySeason[y]??-1;}return av!==bv?(av-bv)*coachDir:b.eff-a.eff;});
+  document.querySelector("#coachTable tbody").innerHTML=rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(r.m)}</td><td class="num pct">${r.eff}%</td><td class="num">${r.left}</td><td class="num sub">${r.bySeason["2024"]?r.bySeason["2024"]+'%':'—'}</td><td class="num sub">${r.bySeason["2025"]?r.bySeason["2025"]+'%':'—'}</td><td class="num sub">${r.bySeason["2026"]?r.bySeason["2026"]+'%':'—'}</td></tr>`).join("");
+  document.querySelectorAll("#coachTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===coachSort){const s=document.createElement("span");s.className="arrow";s.textContent=coachDir<0?" ▼":" ▲";th.appendChild(s);}});}
+document.querySelectorAll("#coachTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===coachSort)coachDir*=-1;else{coachSort=k;coachDir=(k==="left")?1:-1;}renderCoach();}));
+
+/* scoring & luck */
+let scoreYears=new Set(YEARS_AVAIL),scoreSort="pf",scoreDir=-1;
+function renderScoreYears(){const all=scoreYears.size===YEARS_AVAIL.length;const el=document.getElementById("scoreYears");el.querySelectorAll("button").forEach(b=>b.remove());
+  const mk=(label,key,cls)=>{const b=document.createElement("button");b.textContent=label;if(cls)b.className=cls;b.setAttribute("aria-pressed",key==="all"?all:scoreYears.has(key));b.addEventListener("click",()=>{if(key==="all")scoreYears=new Set(YEARS_AVAIL);else{scoreYears.has(key)?scoreYears.delete(key):scoreYears.add(key);if(scoreYears.size===0)scoreYears=new Set(YEARS_AVAIL);}renderScoreYears();renderScoring();});el.appendChild(b);};
+  mk("All-Time","all","all");YEARS_AVAIL.forEach(y=>mk(y,y));}
+function aggScore(){const yrs=[...scoreYears];return NAMES.map(m=>{let pf=0,pa=0,w=0,l=0,apw=0,apl=0;yrs.forEach(y=>{const d=SCOREYR[y]&&SCOREYR[y][m];if(d){pf+=d.pf;pa+=d.pa;w+=d.w;l+=d.l;apw+=d.apw;apl+=d.apl;}});const g=w+l;return {m,pf,pa,w,l,apw,apl,games:g,ppg:g?pf/g:0,luck:pctv(w,l)-pctv(apw,apl)};}).filter(r=>r.games>0);}
+function renderScoring(){const rows=aggScore();rows.sort((a,b)=>{let av,bv;if(scoreSort==="pf"){av=a.pf;bv=b.pf;}else if(scoreSort==="ppg"){av=a.ppg;bv=b.ppg;}else if(scoreSort==="rec"){av=pctv(a.w,a.l);bv=pctv(b.w,b.l);}else{av=a.luck;bv=b.luck;}return av!==bv?(av-bv)*scoreDir:b.pf-a.pf;});
+  const sgn=v=>(v>0?'+':'')+v.toFixed(3).replace(/^(-?)0/,'$1');
+  document.querySelector("#scoreTable tbody").innerHTML=rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(r.m)}</td><td class="num">${r.pf.toFixed(0)}</td><td class="num">${r.ppg.toFixed(1)}</td><td class="num wl"><b>${r.w}</b>–<i>${r.l}</i></td><td class="num sub">${r.apw}–${r.apl}</td><td class="num"><span class="${r.luck>0.03?'pos':r.luck<-0.03?'neg':''}">${sgn(r.luck)}</span></td></tr>`).join("");
+  document.querySelectorAll("#scoreTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===scoreSort){const s=document.createElement("span");s.className="arrow";s.textContent=scoreDir<0?" ▼":" ▲";th.appendChild(s);}});
+  const elig=rows.filter(r=>r.games>=4);let note='<b>Luck</b> = actual win% minus all-play win%. Positive = won more than your scores earned.';
+  if(elig.length){const lu=elig.reduce((a,b)=>b.luck>a.luck?b:a),sn=elig.reduce((a,b)=>b.luck<a.luck?b:a);note+=` Most fortunate: <span class="pos">${esc(lu.m)}</span> (${sgn(lu.luck)}). Most snakebit: <span class="neg">${esc(sn.m)}</span> (${sgn(sn.luck)}).`;}
+  document.getElementById("luckNote").innerHTML=note+` <span class="sub">Showing: ${scoreYears.size===YEARS_AVAIL.length?"all-time (2023–26)":[...scoreYears].sort().join(", ")}.</span>`;}
+document.querySelectorAll("#scoreTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===scoreSort)scoreDir*=-1;else{scoreSort=k;scoreDir=-1;}renderScoring();}));
+
+/* draft + waivers */
+document.getElementById("steals").innerHTML=SD.steals.map(p=>`<div class="scoreline hi"><span class="s">${p.pts.toFixed(0)}</span><span class="who">${esc(p.name)}</span><span class="mi">R${p.rd} · ${ml(p.mgr)}</span></div>`).join("");
+document.getElementById("busts").innerHTML=SD.busts.map(p=>`<div class="scoreline lo"><span class="s">${p.pts.toFixed(0)}</span><span class="who">${esc(p.name)}</span><span class="mi">R${p.rd} · ${ml(p.mgr)}</span></div>`).join("");
+document.querySelector("#draftTable tbody").innerHTML=SD.draftcards.map((c,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(c.mgr)}</td><td class="num pct">${c.pts.toFixed(0)}</td><td class="sub">${esc(c.best.name)} <span style="color:var(--gold)">${c.best.pts}</span> (R${c.best.rd})</td></tr>`).join("");
+document.querySelector("#waiverTable tbody").innerHTML=WAIVERS.map((w,i)=>`<tr><td class="rank">${i+1}</td><td class="mgr">${esc(w.name)}</td><td class="sub">${esc(w.pos)}</td><td>${ml(w.mgr)}</td><td class="num pct">${w.pts.toFixed(1)}</td></tr>`).join("");
+let actSort="acq",actDir=-1;
+function renderActivity(){const rows=NAMES.filter(m=>SD.txcount&&SD.txcount[m]).map(m=>({m,...SD.txcount[m]}));
+  rows.sort((a,b)=>{const av=a[actSort],bv=b[actSort];return av!==bv?(av-bv)*actDir:b.acq-a.acq;});
+  document.querySelector("#actTable tbody").innerHTML=rows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(r.m)}</td><td class="num pct">${r.acq}</td><td class="num">${r.trades}</td></tr>`).join("");
+  document.querySelectorAll("#actTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===actSort){const s=document.createElement("span");s.className="arrow";s.textContent=actDir<0?" ▼":" ▲";th.appendChild(s);}});}
+document.querySelectorAll("#actTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===actSort)actDir*=-1;else{actSort=k;actDir=-1;}renderActivity();}));
+renderActivity();
+function renderTrades(){const el=document.getElementById("tradeList");if(!el||!SD.trades)return;
+  el.innerHTML=SD.trades.map(t=>{
+    const wks=Math.max(0,6-t.wk+1);
+    const sides=t.sides.map(s=>{const win=t.leader===s.mgr;
+      const players=s.detail.map(d=>`${esc(d[0])} <i>${d[1]==null?'—':d[1]}</i>`).join(" · ");
+      return `<div class="tside${win?' win':''}"><div class="ts-top"><b>${ml(s.mgr)}</b><span class="haul">${s.haul} <small>pts</small></span></div><div class="ts-get">${players}</div></div>`;
+    }).join('<div class="tvs">⇄</div>');
+    let foot;
+    if(t.leader===null)foot=`<span class="sub">Too early to call — the new players don’t debut until Week 7.</span>`;
+    else if(t.leader==="EVEN")foot=`<span class="sub">Dead even through ${wks} week${wks===1?'':'s'}.</span>`;
+    else foot=`<b class="pos">${esc(t.leader)} winning so far</b> <span class="sub">· post-trade points through ${wks} week${wks===1?'':'s'} (since Week ${t.wk}).</span>`;
+    return `<div class="trade"><div class="trade-h"><span class="td">${esc(t.date)}</span>${t.byLM?' <span class="chip">Commissioner-processed</span>':''}</div><div class="trade-sides">${sides}</div><div class="trade-foot">${foot}</div></div>`;
+  }).join("");}
+renderTrades();
+
+/* ---------- MANAGERS ---------- */
+document.getElementById("mgrs").innerHTML=M.map(m=>`<div class="card mcard" data-id="${m.id}"><div class="nm">${esc(m.name)}${m.wolf?' 🐺':''}</div><div class="tm">${esc(m.team)}</div><div class="rr"><span><b>${m.w}-${m.l}</b> all-time</span><span><b>${SD.records2026[m.name]||"—"}</b> ’26</span></div></div>`).join("");
+document.querySelectorAll("#mgrs .mcard").forEach(c=>c.addEventListener("click",()=>{location.hash="m_"+c.dataset.id;}));
+function closeProfile(){document.getElementById("mgrGrid").hidden=false;document.getElementById("mgrProfile").hidden=true;}
+function openProfile(id){const m=BYID[id];if(!m)return;const n=m.name;const c=SD.coach[n]||{};const st=STATS.streaks[n]||{};
+  const dc=SD.draftcards.find(x=>x.mgr===n)||{};const wv=(SD.waivers.find(x=>x.mgr===n)||{}).adds;
+  const pr=SD.power.find(x=>x.mgr===n)||{};const po=(SD.playoff.find(x=>x.mgr===n)||{}).odds;
+  // best & worst rival
+  let best=null,worst=null;NAMES.forEach(o=>{if(o===n)return;const w=hget(n,o),l=hget(o,n);if(w+l===0)return;const d=w-l;if(best===null||d>best.d)best={o,w,l,d};if(worst===null||d<worst.d)worst={o,w,l,d};});
+  const titles=m.titles?`<span class="pt">🏆 ${m.titles}× champ</span>`:"";
+  document.getElementById("mgrProfile").innerHTML=`
+   <button class="backbtn" onclick="location.hash='managers'">← All managers</button>
+   <div class="phead"><h2>${esc(n)}</h2><span class="tm" style="color:var(--gold);font-weight:700">${esc(m.team)}</span>${titles}${m.wolf?'<span class="chip">🐺 Wolfpack</span>':''}${m.fan?`<span class="chip">${esc(m.fan)} fan</span>`:''}</div>
+   <div class="pstats">
+     <div class="pstat"><div class="k">${m.w}-${m.l}</div><div class="l">All-time record</div></div>
+     <div class="pstat"><div class="k">${esc(SD.records2026[n]||"—")}</div><div class="l">2026 record</div></div>
+     <div class="pstat"><div class="k">#${pr.rank||"—"}</div><div class="l">Power rank</div></div>
+     <div class="pstat"><div class="k">${po!=null?po+"%":"—"}</div><div class="l">Playoff odds</div></div>
+   </div>
+   <div class="prow"><h4>Coaching Efficiency</h4><div class="big">${c.eff!=null?c.eff+"% of optimal started":"—"}</div><div class="sub">${c.left!=null?c.left+" pts left on the bench per week":""} ${c.bySeason?"· by year "+Object.entries(c.bySeason).map(([y,v])=>y+": "+v+"%").join(" · "):""}</div></div>
+   <div class="prow"><h4>2026 Draft</h4><div class="big">${dc.pts!=null?dc.pts.toFixed(0)+" points from draft picks":"—"}</div><div class="sub">${dc.best?"Best pick: "+esc(dc.best.name)+" ("+dc.best.pts+" pts, R"+dc.best.rd+")":""} · ${wv!=null?wv+" waiver adds":""}</div></div>
+   <div class="prow"><h4>Streaks</h4><div class="sub">Longest win streak <b style="color:var(--win)">${st.win||"—"}</b> · longest skid <b style="color:var(--loss)">${st.loss||"—"}</b> · current <b class="${st.cur&&st.cur[0]==='W'?'pos':'neg'}">${st.cur||"—"}</b></div></div>
+   <div class="prow"><h4>Head-to-Head</h4><div class="sub">${best?`Owns: <b>${ml(best.o)}</b> (${best.w}–${best.l})`:""} ${worst&&worst.o!==(best&&best.o)?`· Kryptonite: <b>${ml(worst.o)}</b> (${worst.w}–${worst.l})`:""}</div></div>
+   <div class="prow"><h4>Best season</h4><div class="big">${esc(m.best)}</div></div>`;
+  document.getElementById("mgrGrid").hidden=true;document.getElementById("mgrProfile").hidden=false;
+  window.scrollTo({top:0});}
+
+/* ---------- collapsible, theme, init ---------- */
+(function(){let saved=new Set();try{saved=new Set(JSON.parse(localStorage.getItem("ohfl-collapsed")||"[]"));}catch(e){}
+  document.querySelectorAll("main section").forEach(sec=>{const h2=sec.querySelector(".sec-head h2");if(!h2||!sec.id)return;
+    const caret=document.createElement("span");caret.className="caret";caret.textContent="▾";caret.setAttribute("aria-hidden","true");h2.prepend(caret);
+    h2.setAttribute("role","button");h2.setAttribute("tabindex","0");
+    const set=c=>{if(c)sec.setAttribute("data-collapsed","");else sec.removeAttribute("data-collapsed");h2.setAttribute("aria-expanded",String(!c));};
+    set(saved.has(sec.id));
+    const tog=()=>{const c=!sec.hasAttribute("data-collapsed");set(c);try{c?saved.add(sec.id):saved.delete(sec.id);localStorage.setItem("ohfl-collapsed",JSON.stringify([...saved]));}catch(e){}};
+    h2.addEventListener("click",tog);h2.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog();}});});})();
+const root=document.documentElement,themeBtn=document.getElementById("themeBtn");
+function sysDark(){return window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches;}
+try{const sv=localStorage.getItem("ohfl-theme");if(sv)root.setAttribute("data-theme",sv);}catch(e){}
+themeBtn.addEventListener("click",()=>{const cur=root.getAttribute("data-theme")||(sysDark()?"dark":"light");const nx=cur==="dark"?"light":"dark";root.setAttribute("data-theme",nx);try{localStorage.setItem("ohfl-theme",nx);}catch(e){}});
+
+buildTabs();renderAll();renderYears();renderSeason();initH2H();renderCoach();renderScoreYears();renderScoring();renderStreaks();route();
+</script>
+</body>
+</html>
