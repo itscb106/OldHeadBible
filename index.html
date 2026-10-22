@@ -120,8 +120,11 @@ td.num{text-align:right}
 .cotwchip .cw{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .cotwchip .cm{font-weight:700;margin:2px 0}
 .cotwchip .ce{font-family:var(--display);font-weight:600;color:var(--gold);font-size:.85rem}
-.award{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.award{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow);text-align:center;cursor:default}
 .award .ic{font-size:1.3rem}
+.awtip{position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);width:max-content;max-width:220px;background:var(--fg);color:var(--bg);font-size:.74rem;line-height:1.4;text-align:left;font-weight:400;text-transform:none;letter-spacing:0;padding:9px 11px;border-radius:9px;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;visibility:hidden;transition:opacity .15s;z-index:20;pointer-events:none}
+.awtip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--fg)}
+.award:hover .awtip,.award:focus .awtip,.award:focus-within .awtip{opacity:1;visibility:visible}
 .award .t{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:.64rem;color:var(--muted);margin:4px 0}
 .award .w{font-weight:700} .award .d{color:var(--muted);font-size:.78rem}
 
@@ -465,13 +468,13 @@ document.getElementById("sbNote").textContent=`Week ${SD.thisWeek.week} matchups
 const aw=SD.lastWeek.awards;
 document.getElementById("awNote").textContent=`Week ${SD.lastWeek.week}`;
 {const awList=[
- ["🐕","Big Dog",ml(aw.bigdog.mgr),aw.bigdog.pts+" pts"],
- ["🤡","Clown Show",ml(aw.clown.mgr),aw.clown.pts+" pts"],
- ["🪑","Benchastrophe",ml(aw.bench.mgr),aw.bench.left+" left on bench"]];
- if(aw.coach)awList.push(["📋","Coach of the Week",ml(aw.coach.mgr),aw.coach.eff+"% of optimal"]);
- awList.push(["💥","Blowout",ml(aw.blowout.winner),`by ${aw.blowout.margin} (${aw.blowout.ws}–${aw.blowout.ls})`]);
- awList.push(["😅","Nail-biter",ml(aw.nailbiter.winner),`by ${aw.nailbiter.margin} over ${ml(aw.nailbiter.loser)}`]);
- document.getElementById("awGrid").innerHTML=awList.map(a=>`<div class="award"><div class="ic">${a[0]}</div><div class="t">${a[1]}</div><div class="w">${a[2]}</div><div class="d">${a[3]}</div></div>`).join("");}
+ ["🐕","Big Dog",ml(aw.bigdog.mgr),aw.bigdog.pts+" pts","Highest single-team score of the week."],
+ ["🤡","Clown Show",ml(aw.clown.mgr),aw.clown.pts+" pts","Lowest single-team score of the week."],
+ ["🪑","Benchastrophe",ml(aw.bench.mgr),aw.bench.left+" left on bench","Most points left on the bench — a benched player's score minus the starter he'd have replaced."]];
+ if(aw.coach)awList.push(["📋","Coach of the Week",ml(aw.coach.mgr),aw.coach.eff+"% of optimal","Best lineup-setting — the highest share of your optimal lineup you actually started."]);
+ awList.push(["💥","Blowout",ml(aw.blowout.winner),`by ${aw.blowout.margin} (${aw.blowout.ws}–${aw.blowout.ls})`,"The week's biggest margin of victory."]);
+ awList.push(["😅","Nail-biter",ml(aw.nailbiter.winner),`by ${aw.nailbiter.margin} over ${ml(aw.nailbiter.loser)}`,"The week's closest game — smallest margin."]);
+ document.getElementById("awGrid").innerHTML=awList.map(a=>`<div class="award" tabindex="0"><div class="ic">${a[0]}</div><div class="t">${a[1]}</div><div class="w">${a[2]}</div><div class="d">${a[3]}</div><div class="awtip">${a[4]}</div></div>`).join("");}
 document.getElementById("cotwLog").innerHTML=(SD.cotwLog||[]).map(c=>`<div class="cotwchip"><div class="cw">Wk ${c.wk}</div><div class="cm">${ml(c.mgr)}</div><div class="ce">${c.eff}%</div></div>`).join("");
 document.querySelector("#powerTable tbody").innerHTML=SD.power.map(p=>`<tr><td class="rank">${p.rank}</td><td>${ml(p.mgr)}</td><td class="num wl"><b>${p.rec.split("-")[0]}</b>–<i>${p.rec.split("-")[1]}</i></td><td class="num">${p.pf.toFixed(0)}</td><td class="num">${p.last3.toFixed(1)}</td></tr>`).join("");
 const pomax=Math.max(...SD.playoff.map(p=>p.odds))||100;
