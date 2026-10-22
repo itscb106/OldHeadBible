@@ -7,11 +7,16 @@
 <meta name="theme-color" content="#0e1117">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="OHF Bible">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <title>Old Head Fantasy Holy Bible</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;600;700&display=swap">
 <style>
 /* Layout: a sports record-book as a tabbed hub. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0}
+select{font:inherit;font-size:.95rem;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);cursor:pointer;max-width:100%}
 :root{
   --bg:#eef1f5;--surface:#ffffff;--surface2:#f5f7fa;--fg:#172230;--muted:#5b6777;
   --line:#dce2ea;--gold:#a9792b;--gold-soft:#f1e4c6;--win:#2f8f58;--loss:#c6493a;
@@ -222,6 +227,27 @@ footer b{color:var(--fg)}
   .pstats{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:440px){.rivs,.mgrs{grid-template-columns:1fr}.podium{grid-template-columns:1fr}.awards{grid-template-columns:1fr}}
+@media (max-width:600px){
+  section{padding-block:20px}
+  .hero{padding-block:20px 6px}
+  .sec-head{margin-bottom:12px}
+  .sec-head h2{font-size:1.28rem}
+  .phead h2{font-size:1.6rem}
+  .tile .k{font-size:1.5rem}
+  .tiles{gap:10px;margin-top:16px}
+  /* let narrow tables fill the screen; wide ones still scroll in their wrapper */
+  table{min-width:0}
+  th,td{padding:9px 10px}
+  thead th{font-size:.68rem}
+  /* comfortable tap targets */
+  nav.tabs button{padding:13px 13px}
+  .toggle button,.yearpick button,.years button{padding-top:10px;padding-bottom:10px}
+  .mcard{padding:14px}
+  .ep{padding:14px}
+  /* h2h pickers side by side, each flexible */
+  #h2hA,#h2hB{flex:1 1 40%;min-width:0}
+  audio{width:100%}
+}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -370,6 +396,7 @@ function buildTabs(){document.getElementById("tabnav").innerHTML=TABS.map(t=>`<b
   document.querySelectorAll("#tabnav button").forEach(b=>b.addEventListener("click",()=>{location.hash=b.dataset.tab;}));}
 function showTab(name){document.querySelectorAll(".tabpane").forEach(p=>p.classList.toggle("active",p.id==="tab-"+name));
   document.querySelectorAll("#tabnav button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.tab===name));
+  document.querySelector('#tabnav button[aria-pressed="true"]')?.scrollIntoView({inline:"center",block:"nearest"});
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});}
 function route(){let h="";try{h=(location.hash||"").replace("#","");}catch(e){}
   if(h.startsWith("m_")){const id=h.slice(2);if(BYID[id]){showTab("managers");openProfile(id);return;}}
@@ -543,5 +570,6 @@ themeBtn.addEventListener("click",()=>{const cur=root.getAttribute("data-theme")
 
 buildTabs();renderAll();renderYears();renderSeason();initH2H();renderCoach();renderScoreYears();renderScoring();renderStreaks();route();
 </script>
+<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
