@@ -318,6 +318,22 @@ footer b{color:var(--fg)}
   audio{width:100%}
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* install / add-to-home-screen */
+#installBar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:50;max-width:540px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 34px rgba(0,0,0,.28);padding:11px 12px;display:none;align-items:center;gap:11px}
+#installBar.show{display:flex}
+#installBar .ii{font-size:1.5rem;flex:none}
+#installBar .it{flex:1;min-width:0;font-size:.82rem;line-height:1.35;color:var(--muted)}
+#installBar .it b{display:block;font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--fg);font-size:.92rem}
+#installBar .ibtn{flex:none;font:inherit;font-weight:700;font-size:.82rem;background:var(--gold);color:#140f02;border:0;border-radius:9px;padding:9px 15px;cursor:pointer}
+#installBar .ix{flex:none;background:none;border:0;color:var(--muted);font-size:1.15rem;cursor:pointer;padding:4px 7px;line-height:1}
+#iosHelp{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
+#iosHelp.show{display:flex}
+#iosHelp .card{background:var(--surface);color:var(--fg);border-radius:16px 16px 0 0;border-top:3px solid var(--gold);padding:20px 18px calc(28px + env(safe-area-inset-bottom,0px));max-width:480px;width:100%;box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+#iosHelp h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.03em;font-size:1.15rem;margin:0 0 12px}
+#iosHelp ol{margin:0;padding-left:20px;font-size:.92rem;line-height:1.75}
+#iosHelp ol b{color:var(--gold)}
+#iosHelp .shareico{display:inline-block;transform:translateY(2px)}
+#iosHelp .done{margin-top:18px;width:100%;font:inherit;font-weight:700;background:var(--surface2);border:1px solid var(--line);color:var(--fg);padding:11px;border-radius:10px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -547,6 +563,25 @@ footer b{color:var(--fg)}
     <footer style="border:0;padding-top:4px">Official By-Laws of the Old Head Fantasy League. Trade review period and other settings reflect the current ruleset.</footer>
   </div>
 </main>
+
+<div id="installBar">
+  <span class="ii">📲</span>
+  <div class="it"><b>Add to Home Screen</b><span id="installMsg">Install the Bible as an app — no store, no account.</span></div>
+  <button class="ibtn" id="installGo">Install</button>
+  <button class="ix" id="installX" aria-label="Dismiss">✕</button>
+</div>
+<div id="iosHelp">
+  <div class="card">
+    <h3>📲 Add to Home Screen</h3>
+    <ol>
+      <li>If this opened inside another app, first tap <b>Open in Safari</b>.</li>
+      <li>Tap the <b>Share</b> icon <span class="shareico">⬆️</span> in Safari’s bottom bar.</li>
+      <li>Scroll down and tap <b>Add to Home Screen</b>.</li>
+      <li>Tap <b>Add</b> — the OHF Bible icon lands on your home screen.</li>
+    </ol>
+    <button class="done" id="iosDone">Got it</button>
+  </div>
+</div>
 
 <footer class="wrap">
   <div><b>The Old Head Fantasy League Recap</b> — founded 2022 by Max Emerson; commissioned today by CB “Chasenstein.” Records are regular-season (2023 onward, ESPN); 2022’s were lost. Coaching efficiency is 2024–present; the draft report covers 2026. 2026 is live.</div>
@@ -830,6 +865,27 @@ themeBtn.addEventListener("click",()=>{const cur=root.getAttribute("data-theme")
 
 buildTabs();renderAll();renderYears();renderSeason();initH2H();renderCoach();renderScoreYears();renderScoring();renderStreaks();route();
 </script>
-<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+<script>
+(function(){
+  var bar=document.getElementById('installBar'),go=document.getElementById('installGo'),x=document.getElementById('installX'),msg=document.getElementById('installMsg');
+  var iosHelp=document.getElementById('iosHelp'),iosDone=document.getElementById('iosDone');
+  var deferred=null;
+  function standalone(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;}
+  function dismissed(){try{return localStorage.getItem('ohfb-install-x')==='1';}catch(e){return false;}}
+  var ua=navigator.userAgent||'',isIOS=/iphone|ipad|ipod/i.test(ua)&&!window.MSStream;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(!standalone()&&!dismissed())bar.classList.add('show');});
+  go.addEventListener('click',function(){
+    if(deferred){deferred.prompt();deferred.userChoice.then(function(){deferred=null;bar.classList.remove('show');});}
+    else if(isIOS){iosHelp.classList.add('show');}
+    else{bar.classList.remove('show');}
+  });
+  x.addEventListener('click',function(){bar.classList.remove('show');try{localStorage.setItem('ohfb-install-x','1');}catch(e){}});
+  iosDone.addEventListener('click',function(){iosHelp.classList.remove('show');});
+  iosHelp.addEventListener('click',function(e){if(e.target===iosHelp)iosHelp.classList.remove('show');});
+  if(isIOS&&!standalone()&&!dismissed()){msg.textContent='Install the Bible as an app on your iPhone.';go.textContent='How?';bar.classList.add('show');}
+  window.addEventListener('appinstalled',function(){bar.classList.remove('show');});
+})();
+if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+</script>
 </body>
 </html>
