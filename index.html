@@ -269,6 +269,21 @@ footer b{color:var(--fg)}
 .mtile .k{font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1}
 .mtile .l{color:var(--muted);font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
 
+/* by-laws */
+.blhero{padding:26px 0 8px}
+.blhero h1{font-size:clamp(1.7rem,5vw,2.5rem);text-transform:uppercase;letter-spacing:.01em;margin:.1em 0 .14em}
+.blhero p{color:var(--muted);max-width:60ch;margin:0}
+.blmeta{margin-top:16px;max-width:440px;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.blmeta .r{display:flex;justify-content:space-between;gap:16px;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--line);font-size:.9rem}
+.blmeta .r:last-child{border-bottom:0}
+.blmeta b{font-family:var(--display)}
+.bltext{color:var(--fg);font-size:.92rem;line-height:1.65;max-width:72ch;margin:0 0 10px}
+.bllist{margin:0 0 6px;padding-left:20px}
+.bllist li{color:var(--fg);font-size:.92rem;line-height:1.6;margin-bottom:7px}
+.blh3{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:1rem;color:var(--gold);margin:20px 0 8px}
+#tab-bylaws td,#tab-bylaws th{white-space:normal}
+#tab-bylaws table{min-width:0}
+
 @media (max-width:820px){
   .tiles,.grid4{grid-template-columns:repeat(2,1fr)}
   .prow2{grid-template-columns:1fr}
@@ -396,6 +411,141 @@ footer b{color:var(--fg)}
       <div class="pods" id="pods"></div>
       <p class="legend">A fresh recap drops every Tuesday once the week’s games are final. Earlier-week episodes are being added to the archive.</p></section>
   </div>
+
+  <!-- BY-LAWS -->
+  <div class="tabpane" id="tab-bylaws">
+    <div class="blhero">
+      <div class="eyebrow">The Old Head Fantasy League</div>
+      <h1>Official By-Laws</h1>
+      <p>Established with great optimism and questionable decisions. All members are governed by the rules below.</p>
+      <div class="blmeta">
+        <div class="r"><b>Commissioner</b><span>CB</span></div>
+        <div class="r"><b>Deputy Commissioner</b><span>Oz Kasch</span></div>
+        <div class="r"><b>League Size</b><span>12 Teams</span></div>
+        <div class="r"><b>Scoring Format</b><span>PPR (1 pt / reception)</span></div>
+      </div>
+    </div>
+
+    <section id="bl-overview"><div class="sec-head"><div><h2>1 · League Overview</h2></div></div>
+      <p class="bltext">The Old Head Fantasy League is a 12-team competitive fantasy football league for people who have been doing this long enough to know better, yet here we are again. All members are governed by the rules set forth in this document and are expected to know, follow, and respect these by-laws — ignorance of the rules is not a valid excuse, but it is a time-honored tradition. Rules may be amended through the voting process outlined in Section 8.</p></section>
+
+    <section id="bl-format"><div class="sec-head"><div><h2>2 · Format &amp; Structure</h2></div></div>
+      <p class="bltext"><b>Teams:</b> 12 teams, single division.</p>
+      <div class="blh3">Season Schedule</div>
+      <div class="tableScroll"><table><thead><tr><th>Period</th><th>NFL Weeks</th></tr></thead><tbody>
+        <tr><td>Regular Season (13 matchups)</td><td>Weeks 1–13</td></tr>
+        <tr><td>Playoff Round 1</td><td>Week 14</td></tr>
+        <tr><td>Playoff Round 2</td><td>Week 15</td></tr>
+        <tr><td>Championship Round (2-week combined score)</td><td>Weeks 16–17</td></tr>
+        <tr><td>Unused</td><td>Week 18</td></tr></tbody></table></div>
+      <div class="blh3">Tiebreakers</div>
+      <ul class="bllist"><li><b>Regular Season Matchup Tiebreaker:</b> Most Bench Points.</li><li><b>Playoff Seeding Tiebreaker:</b> Head-to-Head Record.</li></ul></section>
+
+    <section id="bl-roster"><div class="sec-head"><div><h2>3 · Roster</h2></div></div>
+      <div class="tableScroll"><table><thead><tr><th>Slot</th><th>Position</th></tr></thead><tbody>
+        <tr><td>QB</td><td>Quarterback</td></tr>
+        <tr><td>RB ×2</td><td>Running Back</td></tr>
+        <tr><td>WR ×2</td><td>Wide Receiver</td></tr>
+        <tr><td>TE</td><td>Tight End</td></tr>
+        <tr><td>FLEX ×2</td><td>RB / WR / TE</td></tr>
+        <tr><td>D/ST</td><td>Team Defense / Special Teams</td></tr>
+        <tr><td>K</td><td>Place Kicker</td></tr>
+        <tr><td>BE ×7</td><td>Bench</td></tr>
+        <tr><td>IR ×2</td><td>Injured Reserve</td></tr></tbody></table></div></section>
+
+    <section id="bl-playoffs"><div class="sec-head"><div><h2>4 · Playoffs</h2></div></div>
+      <p class="bltext"><b>Qualification:</b> All 12 teams compete in a single division. The top 6 teams by regular-season record qualify for the playoffs. Tiebreaker for seeding is Head-to-Head Record.</p>
+      <div class="blh3">Playoff Bracket</div>
+      <div class="tableScroll"><table><thead><tr><th>Round</th><th>Week(s)</th><th>Matchups</th></tr></thead><tbody>
+        <tr><td>Round 1</td><td>Week 14</td><td>Seed 4 vs 5 · Seed 3 vs 6 (Seeds 1 &amp; 2 BYE)</td></tr>
+        <tr><td>Round 2</td><td>Week 15</td><td>Round 1 winners join Seeds 1 &amp; 2</td></tr>
+        <tr><td>Championship</td><td>Weeks 16–17</td><td>Final two teams — 2-week combined score</td></tr></tbody></table></div></section>
+
+    <section id="bl-transactions"><div class="sec-head"><div><h2>5 · Transactions</h2></div></div>
+      <p class="bltext"><b>Lineup Changes:</b> Player slots lock individually at their scheduled gametime. Managers may not make lineup changes for a player once their game has kicked off.</p>
+      <div class="blh3">Waiver Wire</div>
+      <div class="tableScroll"><table><tbody>
+        <tr><td><b>System</b></td><td>Standard Waivers</td></tr>
+        <tr><td><b>Waiver Period</b></td><td>1 Day</td></tr>
+        <tr><td><b>Waiver Order</b></td><td>Move to Last After Claim — order is never reset</td></tr>
+        <tr><td><b>Season Acquisition Limit</b></td><td>No Limit</td></tr>
+        <tr><td><b>Free Agents</b></td><td>May be picked up at any time</td></tr></tbody></table></div>
+      <div class="blh3">Trade Rules</div>
+      <ul class="bllist">
+        <li><b>Trade Deadline:</b> All trades must be completed prior to the start of NFL Week 12. This is 2 weeks before the fantasy playoffs begin, giving all teams a fair and stable roster heading into the postseason.</li>
+        <li><b>Trade Review Period:</b> 1 day. All league members may cast a veto vote during this window.</li>
+        <li><b>Trade Vetos:</b> A trade requires 3 veto votes from league members to be overturned. All members are eligible to vote on every trade.</li>
+        <li><b>Commissioner Veto Authority:</b> The commissioner reserves the right to unilaterally veto any trade deemed to involve collusion or to be grossly imbalanced to the detriment of league integrity. This authority will be exercised responsibly and sparingly.</li>
+      </ul>
+      <div class="blh3">Eliminated Teams</div>
+      <p class="bltext">Any team mathematically eliminated from playoff contention (not eligible for 5th place or better) is locked from making trades or free-agency moves for the remainder of the season.</p></section>
+
+    <section id="bl-conduct"><div class="sec-head"><div><h2>6 · Conduct</h2></div></div>
+      <ul class="bllist">
+        <li>All managers are expected to set their lineups each week. Intentionally starting injured or inactive players to tank is considered poor sportsmanship and is subject to commissioner review.</li>
+        <li>Collusion of any kind — including lopsided trades designed to unfairly benefit one team — is prohibited and may result in removal from the league at the commissioner's discretion.</li>
+        <li>The commissioner has final say on disputes not explicitly covered by these by-laws.</li>
+      </ul></section>
+
+    <section id="bl-fees"><div class="sec-head"><div><h2>7 · Entry Fees &amp; Payouts</h2></div></div>
+      <div class="tableScroll"><table><tbody>
+        <tr><td><b>Entry Fee</b></td><td>$50 per team</td></tr>
+        <tr><td><b>Total Pot</b></td><td>$600 (12 × $50)</td></tr>
+        <tr><td><b>1st Place</b></td><td>$350</td></tr>
+        <tr><td><b>2nd Place</b></td><td>$200</td></tr>
+        <tr><td><b>3rd Place</b></td><td>$50</td></tr></tbody></table></div>
+      <ul class="bllist" style="margin-top:12px">
+        <li>All entry fees must be paid via Venmo to the commissioner prior to Week 1 of the NFL season. Managers who have not paid by this deadline may be subject to removal at the commissioner's discretion.</li>
+        <li>The entry fee amount is subject to annual vote per Section 8 rules.</li>
+      </ul></section>
+
+    <section id="bl-voting"><div class="sec-head"><div><h2>8 · Rule Changes &amp; Voting</h2></div></div>
+      <p class="bltext">All rule-change proposals must be submitted to the commissioner prior to Week 1 of the NFL season. Proposals will be compiled and put to a league-wide vote before the season begins. Once rules have been voted on and finalized, no additional changes may be made during the active season. An exception may be granted only if there is a clear consensus among league members that something material was overlooked during the pre-season voting process. All rules must be finalized prior to the start of NFL Week 1.</p>
+      <div class="blh3">Voting Process</div>
+      <ul class="bllist">
+        <li>All proposed changes will be put to a league-wide vote conducted via poll in the league group chat.</li>
+        <li>All votes — including roster and scoring changes — require a simple majority (more than 50% of active members) to pass.</li>
+        <li>Votes must be completed within 7 days of the poll being posted.</li>
+        <li>Approved changes take effect the following season unless otherwise specified.</li>
+      </ul></section>
+
+    <section id="bl-draft"><div class="sec-head"><div><h2>9 · Draft Order</h2></div></div>
+      <p class="bltext">The draft order for the upcoming season is set as follows:</p>
+      <div class="tableScroll ctr"><table><thead><tr><th>Pick</th><th>Manager</th></tr></thead><tbody>
+        <tr><td>1</td><td>Brady</td></tr><tr><td>2</td><td>Oz</td></tr><tr><td>3</td><td>Rader</td></tr><tr><td>4</td><td>Bo</td></tr>
+        <tr><td>5</td><td>Jarod</td></tr><tr><td>6</td><td>Will</td></tr><tr><td>7</td><td>Jake</td></tr><tr><td>8</td><td>Bones</td></tr>
+        <tr><td>9</td><td>Hayden</td></tr><tr><td>10</td><td>CB</td></tr><tr><td>11</td><td>Chris</td></tr><tr><td>12</td><td>Tobias</td></tr></tbody></table></div></section>
+
+    <section id="bl-office"><div class="sec-head"><div><h2>10 · Commissioner &amp; League Office</h2></div></div>
+      <div class="blh3">Commissioner: CB</div>
+      <p class="bltext">The commissioner is responsible for managing league settings, resolving disputes, facilitating rule votes, collecting entry fees, and maintaining these by-laws. The commissioner has final authority on all matters not explicitly resolved by these by-laws.</p>
+      <div class="blh3">Deputy Commissioner: Oz Kasch</div>
+      <p class="bltext">Oz Kasch has been personally appointed by the commissioner to serve as Deputy Commissioner. Oz was selected for this role based on his consistent activity in the league and his deep knowledge of fantasy football. In the event the commissioner is unavailable, conflicted, or unable to render a decision, Oz Kasch shall assume commissioner authority for that matter. Oz Kasch also serves as the designated adjudicator for any dispute in which the commissioner is a directly involved party.</p></section>
+
+    <section id="bl-scoring"><div class="sec-head"><div><h2>11 · Scoring Reference</h2></div></div>
+      <div class="blh3">Passing</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th>Abbrev.</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Passing Yards</td><td>PY</td><td class="num">0.04 / yard</td></tr><tr><td>TD Pass</td><td>PTD</td><td class="num">+4</td></tr><tr><td>Interception Thrown</td><td>INT</td><td class="num">−2</td></tr><tr><td>2pt Passing Conversion</td><td>2PC</td><td class="num">+2</td></tr></tbody></table></div>
+      <div class="blh3">Rushing</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th>Abbrev.</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Rushing Yards</td><td>RY</td><td class="num">0.1 / yard</td></tr><tr><td>TD Rush</td><td>RTD</td><td class="num">+6</td></tr><tr><td>2pt Rushing Conversion</td><td>2PR</td><td class="num">+2</td></tr></tbody></table></div>
+      <div class="blh3">Receiving</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th>Abbrev.</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Receiving Yards</td><td>REY</td><td class="num">0.1 / yard</td></tr><tr><td>Each Reception</td><td>REC</td><td class="num">+1</td></tr><tr><td>TD Reception</td><td>RETD</td><td class="num">+6</td></tr><tr><td>2pt Receiving Conversion</td><td>2PRE</td><td class="num">+2</td></tr></tbody></table></div>
+      <div class="blh3">Kicking</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th>Abbrev.</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Each PAT Made</td><td>PAT</td><td class="num">+1</td></tr><tr><td>Total FG Missed</td><td>FGM</td><td class="num">−1</td></tr><tr><td>FG Made 0–39 yards</td><td>FG0</td><td class="num">+3</td></tr><tr><td>FG Made 40–49 yards</td><td>FG40</td><td class="num">+4</td></tr><tr><td>FG Made 50–59 yards</td><td>FG50</td><td class="num">+5</td></tr><tr><td>FG Made 60+ yards</td><td>FG60</td><td class="num">+6</td></tr></tbody></table></div>
+      <div class="blh3">Team Defense / Special Teams</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Kickoff / Punt / Int / Fumble / Blocked-kick Return TD</td><td class="num">+6</td></tr><tr><td>2pt Return</td><td class="num">+2</td></tr><tr><td>1pt Safety</td><td class="num">+1</td></tr><tr><td>Each Sack</td><td class="num">+1</td></tr><tr><td>Blocked Punt, PAT, or FG</td><td class="num">+2</td></tr><tr><td>Each Interception</td><td class="num">+2</td></tr><tr><td>Each Fumble Recovered</td><td class="num">+2</td></tr><tr><td>Each Safety</td><td class="num">+2</td></tr>
+        <tr><td>Points allowed — 0</td><td class="num">+5</td></tr><tr><td>1–6</td><td class="num">+4</td></tr><tr><td>7–13</td><td class="num">+3</td></tr><tr><td>14–17</td><td class="num">+1</td></tr><tr><td>18–27</td><td class="num">0</td></tr><tr><td>28–34</td><td class="num">−1</td></tr><tr><td>35–45</td><td class="num">−3</td></tr><tr><td>46+</td><td class="num">−5</td></tr>
+        <tr><td>Yards allowed — &lt;100</td><td class="num">+5</td></tr><tr><td>100–199</td><td class="num">+3</td></tr><tr><td>200–299</td><td class="num">+2</td></tr><tr><td>300–349</td><td class="num">0</td></tr><tr><td>350–399</td><td class="num">−1</td></tr><tr><td>400–449</td><td class="num">−3</td></tr><tr><td>450–499</td><td class="num">−5</td></tr><tr><td>500–549</td><td class="num">−6</td></tr><tr><td>550+</td><td class="num">−7</td></tr></tbody></table></div>
+      <div class="blh3">Miscellaneous (Individual Players)</div>
+      <div class="tableScroll"><table><thead><tr><th>Category</th><th class="num">Points</th></tr></thead><tbody>
+        <tr><td>Kickoff / Punt / Int / Fumble / Blocked-kick Return TD</td><td class="num">+6</td></tr><tr><td>Fumble Recovered for TD</td><td class="num">+6</td></tr><tr><td>Total Fumbles Lost</td><td class="num">−2</td></tr><tr><td>2pt Return</td><td class="num">+2</td></tr><tr><td>1pt Safety</td><td class="num">+1</td></tr></tbody></table></div></section>
+
+    <footer style="border:0;padding-top:4px">Official By-Laws of the Old Head Fantasy League. Trade review period and other settings reflect the current ruleset.</footer>
+  </div>
 </main>
 
 <footer class="wrap">
@@ -447,7 +597,7 @@ const pctv=(w,l)=>(w+l)?w/(w+l):0;
 const ml=n=>`<a class="mlink" href="#m_${MID[n]}">${esc(n)}</a>`;
 
 /* ---------- TABS + routing ---------- */
-const TABS=[["thisweek","This Week"],["podcast","Podcast"],["history","History"],["analytics","Analytics"],["managers","Managers"]];
+const TABS=[["thisweek","This Week"],["podcast","Podcast"],["history","History"],["analytics","Analytics"],["managers","Managers"],["bylaws","By-Laws"]];
 function buildTabs(){document.getElementById("tabnav").innerHTML=TABS.map(t=>`<button data-tab="${t[0]}">${t[1]}</button>`).join("");
   document.querySelectorAll("#tabnav button").forEach(b=>b.addEventListener("click",()=>{location.hash=b.dataset.tab;}));}
 function showTab(name){document.querySelectorAll(".tabpane").forEach(p=>p.classList.toggle("active",p.id==="tab-"+name));
@@ -581,7 +731,7 @@ function renderTrades(){const el=document.getElementById("tradeList");if(!el||!S
     if(t.leader===null)foot=`<span class="sub">Too early to call — the new players don’t debut until Week 7.</span>`;
     else if(t.leader==="EVEN")foot=`<span class="sub">Dead even through ${wks} week${wks===1?'':'s'}.</span>`;
     else foot=`<b class="pos">${esc(t.leader)} winning so far</b> <span class="sub">· post-trade points through ${wks} week${wks===1?'':'s'} (since Week ${t.wk}).</span>`;
-    return `<div class="trade"><div class="trade-h"><span class="td">${esc(t.date)}</span>${t.byLM?' <span class="chip">Commissioner-processed</span>':''}</div><div class="trade-sides">${sides}</div><div class="trade-foot">${foot}</div></div>`;
+    return `<div class="trade"><div class="trade-h"><span class="td">${esc(t.date)}</span></div><div class="trade-sides">${sides}</div><div class="trade-foot">${foot}</div></div>`;
   }).join("");}
 renderTrades();
 
