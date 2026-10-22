@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0e1117">
+<title>Profile v2 Preview — CB</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#eef1f5;--surface:#ffffff;--surface2:#f5f7fa;--fg:#172230;--muted:#5b6777;--line:#dce2ea;--gold:#a9792b;--gold-soft:#f1e4c6;--win:#2f8f58;--loss:#c6493a;--shadow:0 1px 2px rgba(20,32,48,.06),0 8px 24px rgba(20,32,48,.06);--display:"Oswald","Arial Narrow",system-ui,sans-serif;--body:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1117;--surface:#161c26;--surface2:#1c2430;--fg:#e8edf4;--muted:#9aa7b7;--line:#28313f;--gold:#e6b53c;--gold-soft:#2a2514;--win:#49b874;--loss:#e76552;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#0e1117;--surface:#161c26;--surface2:#1c2430;--fg:#e8edf4;--muted:#9aa7b7;--line:#28313f;--gold:#e6b53c;--gold-soft:#2a2514;--win:#49b874;--loss:#e76552;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);color-scheme:dark;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.05;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.banner{background:var(--gold-soft);border-bottom:1px solid var(--line);font-size:.8rem;color:var(--muted);padding:9px 0}
+.banner b{color:var(--fg)}
+.theme{float:right;font:inherit;font-size:.9rem;background:var(--surface);border:1px solid var(--line);color:var(--fg);width:34px;height:30px;border-radius:8px;cursor:pointer;margin-top:-4px}
+.phead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:22px 0 2px}
+.phead h1{font-size:2.3rem;text-transform:uppercase;letter-spacing:.01em}
+.phead .tm{color:var(--gold);font-weight:700}
+.chip{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+.chip.gold{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.pstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.pstat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+.pstat .k{font-family:var(--display);font-size:1.6rem;font-weight:700;line-height:1}
+.pstat .k.gold{color:var(--gold)}
+.pstat .l{color:var(--muted);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;margin-top:5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 17px;box-shadow:var(--shadow);margin-bottom:14px}
+.card > h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:.95rem;margin-bottom:3px}
+.card .sub{color:var(--muted);font-size:.8rem;margin-bottom:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.76rem;color:var(--muted);margin-bottom:6px}
+.legend i{display:inline-block;width:14px;height:0;border-top-width:3px;border-top-style:solid;vertical-align:middle;margin-right:5px}
+/* season shape */
+.shape{display:flex;gap:7px;flex-wrap:wrap}
+.blk{flex:1;min-width:42px;text-align:center;border-radius:10px;padding:9px 4px;border:1px solid var(--line)}
+.blk .r{font-family:var(--display);font-weight:700;font-size:1.3rem;line-height:1}
+.blk .wk{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px}
+.blk .sc{font-size:.68rem;color:var(--muted);margin-top:2px}
+.blk.win{background:color-mix(in srgb,var(--win) 13%,var(--surface));border-color:color-mix(in srgb,var(--win) 45%,var(--line))}
+.blk.win .r{color:var(--win)}
+.blk.loss{background:color-mix(in srgb,var(--loss) 12%,var(--surface));border-color:color-mix(in srgb,var(--loss) 45%,var(--line))}
+.blk.loss .r{color:var(--loss)}
+/* season bars */
+.srow{display:grid;grid-template-columns:3.2em 4.2em 1fr;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:0}
+.srow .yr{font-family:var(--display);font-weight:700;font-size:1.05rem}
+.srow .rec b{color:var(--win)} .srow .rec i{color:var(--loss);font-style:normal}
+.pfpa{position:relative}
+.pfbar{height:9px;border-radius:999px;background:var(--gold)}
+.pfpa .nums{font-size:.72rem;color:var(--muted);margin-top:4px}
+.pfpa .nums b{color:var(--fg)}
+/* luck */
+.lk{display:flex;flex-direction:column;gap:9px}
+.lk .lrow{display:grid;grid-template-columns:5.5em 1fr 3em;align-items:center;gap:10px;font-size:.82rem}
+.lk .track{height:14px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);overflow:hidden}
+.lk .fill{height:100%;border-radius:999px}
+.lk .v{font-family:var(--display);font-weight:600;text-align:right}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;padding:6px 11px;border-radius:999px;margin-top:10px}
+.badge.good{color:var(--win);background:color-mix(in srgb,var(--win) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--win) 40%,var(--line))}
+/* trophy */
+.trophies{display:flex;gap:9px;flex-wrap:wrap}
+.tphy{display:flex;align-items:center;gap:9px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:9px 12px;min-width:140px}
+.tphy.gold{border-color:color-mix(in srgb,var(--gold) 50%,var(--line));background:linear-gradient(180deg,var(--gold-soft),var(--surface))}
+.tphy .ic{font-size:1.3rem}
+.tphy .t{font-family:var(--display);font-weight:700;font-size:1rem;line-height:1}
+.tphy .d{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px}
+.mtile{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.mtile .k{font-family:var(--display);font-weight:700;font-size:1.15rem;line-height:1}
+.mtile .l{color:var(--muted);font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+footer{color:var(--muted);font-size:.78rem;padding:18px 0 40px;border-top:1px solid var(--line);margin-top:8px}
+@media (max-width:720px){.phead h1{font-size:1.8rem}.pstats,.mini{grid-template-columns:repeat(2,1fr)}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="banner"><div class="wrap"><button class="theme" id="themeBtn" title="light / dark">◐</button><b>Profile v2 — preview.</b> This is one manager (CB) as an example. If you like it, I roll it out to all 12. Nothing else on the site changed.</div></div>
+<main class="wrap">
+  <div class="phead"><h1>CB</h1><span class="tm">CB BY 90</span><span class="chip gold">🐺 Wolfpack</span><span class="chip">Saints fan</span><span class="chip">Commissioner</span></div>
+
+  <div class="pstats">
+    <div class="pstat"><div class="k">34-10</div><div class="l">All-time record</div></div>
+    <div class="pstat"><div class="k gold">#1</div><div class="l">Power rank</div></div>
+    <div class="pstat"><div class="k">4-2</div><div class="l">2026 record</div></div>
+    <div class="pstat"><div class="k">90.4%</div><div class="l">Playoff odds</div></div>
+  </div>
+
+  <div class="card">
+    <h3>The Season So Far · 2026</h3><div class="sub">Every week, win or loss — tap a block for the matchup.</div>
+    <div class="shape" id="shape"></div>
+  </div>
+
+  <div class="card">
+    <h3>Weekly Scoring vs. the League</h3><div class="sub">Your points each week against the league average. That Week 5 is the single-week record.</div>
+    <div class="legend"><span><i style="border-color:var(--gold)"></i>CB</span><span><i style="border-color:var(--muted);border-top-style:dashed"></i>League average</span></div>
+    <svg id="trend" viewBox="0 0 720 320" role="img" aria-label="Weekly scoring line chart"></svg>
+  </div>
+
+  <div class="row2">
+    <div class="card">
+      <h3>Finish History</h3><div class="sub">Where you ended each season (1st = top).</div>
+      <svg id="placement" viewBox="0 0 360 260" role="img" aria-label="Finish placement by season"></svg>
+    </div>
+    <div class="card">
+      <h3>Luck Index · all-time</h3><div class="sub">Your real win rate vs. an "all-play" rate — if you played everyone every week.</div>
+      <div class="lk" id="luck"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Season by Season</h3><div class="sub">Record, and points for vs. against.</div>
+    <div id="seasons"></div>
+  </div>
+
+  <div class="card">
+    <h3>Trophy Case</h3><div class="sub">The hardware, the near-misses, and the records you hold.</div>
+    <div class="trophies" id="trophies"></div>
+    <div class="mini" id="mini"></div>
+  </div>
+
+  <footer>Preview page · Old Head Fantasy Holy Bible. Data 2023–2026 (regular season; 2022 lost). All values pulled from the ESPN API.</footer>
+</main>
+
+<script>
+const P={
+ week2026:[{wk:1,pf:127.1,opp:"Chris",os:150.0,res:"L"},{wk:2,pf:115.2,opp:"J Ray",os:126.6,res:"L"},{wk:3,pf:148.6,opp:"Jake",os:125.0,res:"W"},{wk:4,pf:137.9,opp:"Bo",os:128.8,res:"W"},{wk:5,pf:208.4,opp:"Brady",os:99.4,res:"W"},{wk:6,pf:110.2,opp:"Jarvis",os:87.2,res:"W"}],
+ lgavg:[127.9,119.2,126.5,133.8,134.4,112.0],
+ placement:[{yr:2023,rank:2,rec:"12-1"},{yr:2024,rank:2,rec:"11-2"},{yr:2025,rank:6,rec:"7-5"},{yr:2026,rank:2,rec:"4-2",live:true}],
+ seasons:[{yr:2023,w:12,l:1,pf:1739.6,pa:1330.7},{yr:2024,w:11,l:2,pf:1720.1,pa:1484.1},{yr:2025,w:7,l:5,pf:1591.5,pa:1547.0},{yr:2026,w:4,l:2,pf:847.3,pa:717.1}],
+ luck:{actual:0.773,allplay:0.654}
+};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function draw(){
+ const C={gold:css('--gold'),win:css('--win'),loss:css('--loss'),muted:css('--muted'),line:css('--line'),fg:css('--fg'),surface:css('--surface')};
+
+ // 1. season shape
+ document.getElementById('shape').innerHTML=P.week2026.map(w=>`<div class="blk ${w.res==='W'?'win':'loss'}" title="Week ${w.wk}: ${w.pf} ${w.res==='W'?'def.':'lost to'} ${w.opp} (${w.os})"><div class="r">${w.res}</div><div class="wk">Wk ${w.wk}</div><div class="sc">${w.pf}</div></div>`).join('');
+
+ // 2. trend
+ const W=720,H=320,pl=44,pr=18,pt=24,pb=38, pw=W-pl-pr, ph=H-pt-pb;
+ const dmin=100,dmax=215;
+ const X=i=>pl+(i/(P.week2026.length-1))*pw;
+ const Y=v=>pt+(1-(v-dmin)/(dmax-dmin))*ph;
+ let s='';
+ // gridlines
+ [100,150,200].forEach(g=>{const y=Y(g);s+=`<line x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}" stroke="${C.line}" stroke-width="1"/><text x="${pl-7}" y="${y+4}" text-anchor="end" font-size="12" fill="${C.muted}">${g}</text>`;});
+ // week labels
+ P.week2026.forEach((w,i)=>{s+=`<text x="${X(i)}" y="${H-12}" text-anchor="middle" font-size="12" fill="${C.muted}">Wk${w.wk}</text>`;});
+ // league avg dashed
+ let lp=P.lgavg.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+ s+=`<path d="${lp}" fill="none" stroke="${C.muted}" stroke-width="2" stroke-dasharray="5 5" opacity=".8"/>`;
+ // CB line
+ let cp=P.week2026.map((w,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(w.pf).toFixed(1)}`).join(' ');
+ s+=`<path d="${cp}" fill="none" stroke="${C.gold}" stroke-width="2.5"/>`;
+ // dots + labels
+ P.week2026.forEach((w,i)=>{const x=X(i),y=Y(w.pf);s+=`<circle cx="${x}" cy="${y}" r="4.5" fill="${C.gold}" stroke="${C.surface}" stroke-width="2"><title>Week ${w.wk}: ${w.pf}</title></circle>`;
+   if(w.pf===208.4||i===0||i===P.week2026.length-1){s+=`<text x="${x}" y="${y-11}" text-anchor="middle" font-size="12.5" font-weight="700" fill="${C.fg}">${w.pf}</text>`;}});
+ document.getElementById('trend').innerHTML=s;
+
+ // 3. placement
+ const W2=360,H2=260,p2l=40,p2r=20,p2t=26,p2b=34,pw2=W2-p2l-p2r,ph2=H2-p2t-p2b;
+ const X2=i=>p2l+(i/(P.placement.length-1))*pw2;
+ const Y2=r=>p2t+((r-1)/(12-1))*ph2;
+ let s2='';
+ [1,6,12].forEach(r=>{const y=Y2(r);s2+=`<line x1="${p2l}" y1="${y}" x2="${W2-p2r}" y2="${y}" stroke="${C.line}" stroke-width="1"/><text x="${p2l-6}" y="${y+4}" text-anchor="end" font-size="11" fill="${C.muted}">${r===1?'1st':r===12?'12th':'6th'}</text>`;});
+ let pp=P.placement.map((d,i)=>`${i?'L':'M'}${X2(i).toFixed(1)} ${Y2(d.rank).toFixed(1)}`).join(' ');
+ s2+=`<path d="${pp}" fill="none" stroke="${C.gold}" stroke-width="2.5"/>`;
+ const ord=['','1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'];
+ P.placement.forEach((d,i)=>{const x=X2(i),y=Y2(d.rank);const medal=d.rank<=3?['','🥇','🥈','🥉'][d.rank]:'';
+   s2+=`<circle cx="${x}" cy="${y}" r="5.5" fill="${C.gold}" stroke="${C.surface}" stroke-width="2"><title>${d.yr}: ${ord[d.rank]} (${d.rec})</title></circle>`;
+   s2+=`<text x="${x}" y="${y-12}" text-anchor="middle" font-size="12" font-weight="700" fill="${C.fg}">${medal} ${ord[d.rank]}</text>`;
+   s2+=`<text x="${x}" y="${H2-12}" text-anchor="middle" font-size="12" fill="${C.muted}">${d.yr}${d.live?'*':''}</text>`;});
+ document.getElementById('placement').innerHTML=s2;
+
+ // 4. luck
+ const pct=v=>Math.round(v*100)+'%';
+ const delta=P.luck.actual-P.luck.allplay;
+ document.getElementById('luck').innerHTML=
+  `<div class="lrow"><span>Actual</span><div class="track"><div class="fill" style="width:${P.luck.actual*100}%;background:var(--gold)"></div></div><span class="v">${pct(P.luck.actual)}</span></div>`+
+  `<div class="lrow"><span>All-play</span><div class="track"><div class="fill" style="width:${P.luck.allplay*100}%;background:var(--muted)"></div></div><span class="v">${pct(P.luck.allplay)}</span></div>`+
+  `<div><span class="badge good">▲ +${Math.round(delta*100)} pts — you've won a bit more than your scores alone earned</span></div>`;
+
+ // 5. seasons
+ const maxpf=Math.max(...P.seasons.map(s=>s.pf));
+ document.getElementById('seasons').innerHTML=P.seasons.map(s=>{const diff=(s.pf-s.pa);const sign=diff>=0?'+':'';
+   return `<div class="srow"><span class="yr">${s.yr}</span><span class="rec"><b>${s.w}</b>–<i>${s.l}</i></span><div class="pfpa"><div class="pfbar" style="width:${(s.pf/maxpf*100).toFixed(0)}%"></div><div class="nums"><b>${s.pf.toFixed(0)}</b> for · ${s.pa.toFixed(0)} against · <b style="color:${diff>=0?'var(--win)':'var(--loss)'}">${sign}${diff.toFixed(0)}</b></div></div></div>`;}).join('');
+
+ // 6. trophies + mini
+ document.getElementById('trophies').innerHTML=[
+  ['👑','Winningest','34-10 all-time',true],
+  ['💥','Record','208.4 single week',true],
+  ['🥈','Runner-up','2023 & 2024',false],
+  ['🎯','Playoffs','3 appearances',false],
+  ['🐕','Big Dog','1× in 2026',false],
+  ['💍','Titles','0 — still ringless',false],
+ ].map(t=>`<div class="tphy ${t[3]?'gold':''}"><span class="ic">${t[0]}</span><div><div class="t">${t[1]}</div><div class="d">${t[2]}</div></div></div>`).join('');
+ document.getElementById('mini').innerHTML=[
+  ['208.4','Signature week (Wk5)'],['110.2','Worst week (Wk6)'],['93.2%','2026 coaching eff.'],['Brady 5-0','Owns'],['Hayden 1-3','Kryptonite'],['27','Acquisitions'],['3','Trades'],['CeeDee Lamb','Best 2026 pick'],
+ ].map(m=>`<div class="mtile"><div class="k">${m[0]}</div><div class="l">${m[1]}</div></div>`).join('');
+}
+draw();
+const root=document.documentElement,tb=document.getElementById('themeBtn');
+tb.addEventListener('click',()=>{const sys=matchMedia('(prefers-color-scheme:dark)').matches;const cur=root.getAttribute('data-theme')||(sys?'dark':'light');root.setAttribute('data-theme',cur==='dark'?'light':'dark');draw();});
+</script>
+</body>
+</html>
