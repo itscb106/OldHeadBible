@@ -318,8 +318,8 @@ footer b{color:var(--fg)}
   <div class="tabpane" id="tab-thisweek">
     <section class="hero">
       <div class="eyebrow">The Old Head Fantasy League</div>
-      <h1>Old Head Fantasy Holy Bible</h1>
-      <p>A dozen former college wrestlers, one PPR league, and a trophy named for a founder. Live every week — scores, awards, power rankings, playoff odds.</p>
+      <h1>Holy Bible</h1>
+      <p>A dozen former college wrestlers, one PPR league, and a trophy named for a founder. Updated every week — scores, awards, power rankings, playoff odds.</p>
       <div class="tiles">
         <div class="tile"><div class="k gold">5</div><div class="l">Seasons (2022–26)</div></div>
         <div class="tile"><div class="k">4</div><div class="l">Champions</div></div>
@@ -340,7 +340,7 @@ footer b{color:var(--fg)}
   <!-- HISTORY -->
   <div class="tabpane" id="tab-history">
     <section id="alltime"><div class="sec-head"><div><h2>All-Time Standings</h2></div><p>Official regular-season record, 2023–present (2022 lost). Tap a column to sort.</p></div>
-      <div class="tableScroll ctr"><table id="allTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="w">W</th><th class="sortable num" data-sort="l">L</th><th class="sortable num" data-sort="pct">Win%</th><th class="sortable num" data-sort="titles">Titles</th><th class="num">Best Yr</th></tr></thead><tbody></tbody></table></div>
+      <div class="tableScroll ctr"><table id="allTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="w">W</th><th class="sortable num" data-sort="l">L</th><th class="num">GP</th><th class="sortable num" data-sort="pct">Win%</th><th class="sortable num" data-sort="titles">Titles</th><th class="num">Best Yr</th></tr></thead><tbody></tbody></table></div>
       <p class="legend">CB owns the best record in league history (34-10) and has still never won it.</p></section>
     <section id="seasons"><div class="sec-head"><div><h2>Season by Season</h2></div><div class="years" id="years"></div></div>
       <div class="podium" id="podium"></div>
@@ -375,7 +375,7 @@ footer b{color:var(--fg)}
       <div class="two"><div class="panel"><h3>Biggest Steals (round 8+)</h3><div id="steals"></div></div><div class="panel"><h3>Biggest Busts (rounds 1–5)</h3><div id="busts"></div></div></div>
       <div class="tableScroll ctr" style="margin-top:14px"><table id="draftTable"><thead><tr><th>#</th><th>Manager</th><th class="num">Draft Pts</th><th>Best Pick</th></tr></thead><tbody></tbody></table></div>
       <p class="legend">Busts are dominated by early picks lost to injury (A.J. Brown, Saquon, Achane).</p></section>
-    <section id="waivers"><div class="sec-head"><div><h2>Waiver Wire Gems</h2></div><p>Top-scoring 2026 players who went undrafted — skill positions only.</p></div>
+    <section id="waivers"><div class="sec-head"><div><h2>Waiver Wire Gems</h2></div><p>Top-scoring 2026 players who went undrafted — excludes kickers &amp; defenses.</p></div>
       <div class="tableScroll ctr"><table id="waiverTable"><thead><tr><th>#</th><th>Player</th><th>Pos</th><th>Manager</th><th class="num">2026 Pts</th></tr></thead><tbody></tbody></table></div></section>
     <section id="activity"><div class="sec-head"><div><h2>Acquisitions &amp; Trades</h2></div><p>Season transaction totals from ESPN — acquisitions (waiver + free-agent adds) and completed trades. 2026. Tap a column to sort.</p></div>
       <div class="tableScroll ctr"><table id="actTable"><thead><tr><th>#</th><th>Manager</th><th class="sortable num" data-sort="acq">Acquisitions</th><th class="sortable num" data-sort="trades">Trades</th></tr></thead><tbody></tbody></table></div></section>
@@ -392,14 +392,14 @@ footer b{color:var(--fg)}
 
   <!-- PODCAST -->
   <div class="tabpane" id="tab-podcast">
-    <section style="border-top:0" id="podcast"><div class="sec-head"><div><h2>The Podcast</h2></div><p>The Old Heads Fantasy League Recap — the Tuesday weekly recap show, hosted by “Chasenstein.” Comedy first, nobody is safe.</p></div>
+    <section style="border-top:0" id="podcast"><div class="sec-head"><div><h2>The Podcast</h2></div><p>The Old Head Fantasy League Recap — the Tuesday weekly recap show, hosted by “Chasenstein.” Comedy first, nobody is safe.</p></div>
       <div class="pods" id="pods"></div>
       <p class="legend">A fresh recap drops every Tuesday once the week’s games are final. Earlier-week episodes are being added to the archive.</p></section>
   </div>
 </main>
 
 <footer class="wrap">
-  <div><b>The Old Heads Fantasy League Recap</b> — founded 2022 by Max Emerson; commissioned today by CB “Chasenstein.” Records are regular-season (2023 onward, ESPN); 2022’s were lost. Player-level analytics (coaching, draft) are 2024–present. 2026 is live.</div>
+  <div><b>The Old Head Fantasy League Recap</b> — founded 2022 by Max Emerson; commissioned today by CB “Chasenstein.” Records are regular-season (2023 onward, ESPN); 2022’s were lost. Coaching efficiency is 2024–present; the draft report covers 2026. 2026 is live.</div>
 </footer>
 
 <script>
@@ -489,7 +489,7 @@ renderPods();
 let sortKey="pct",sortDir=-1;
 function renderAll(){const rows=[...M].map(m=>({...m,p:pctv(m.w,m.l)}));
   rows.sort((a,b)=>{let av,bv;if(sortKey==="pct"){av=a.p;bv=b.p;}else if(sortKey==="w"){av=a.w;bv=b.w;}else if(sortKey==="l"){av=a.l;bv=b.l;}else{av=a.titles;bv=b.titles;}return av!==bv?(av-bv)*sortDir:b.p-a.p;});
-  document.querySelector("#allTable tbody").innerHTML=rows.map((m,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(m.name)}${m.wolf?' <span class="chip">🐺</span>':''}<div class="sub">${esc(m.team)}</div></td><td class="num" style="color:var(--win);font-weight:700">${m.w}</td><td class="num" style="color:var(--loss)">${m.l}</td><td class="num pct">${pctStr(m.p)}</td><td class="num">${m.titles?'<span class="trophy">'+'🏆'.repeat(m.titles)+'</span>':'<span class="sub">—</span>'}</td><td class="num sub">${esc(m.best)}</td></tr>`).join("");
+  document.querySelector("#allTable tbody").innerHTML=rows.map((m,i)=>`<tr><td class="rank">${i+1}</td><td>${ml(m.name)}${m.wolf?' <span class="chip">🐺</span>':''}<div class="sub">${esc(m.team)}</div></td><td class="num" style="color:var(--win);font-weight:700">${m.w}</td><td class="num" style="color:var(--loss)">${m.l}</td><td class="num sub">${m.w+m.l}</td><td class="num pct">${pctStr(m.p)}</td><td class="num">${m.titles?'<span class="trophy">'+'🏆'.repeat(m.titles)+'</span>':'<span class="sub">—</span>'}</td><td class="num sub">${esc(m.best)}</td></tr>`).join("");
   document.querySelectorAll("#allTable th.sortable").forEach(th=>{th.querySelector(".arrow")?.remove();if(th.dataset.sort===sortKey){const s=document.createElement("span");s.className="arrow";s.textContent=sortDir<0?" ▼":" ▲";th.appendChild(s);}});}
 document.querySelectorAll("#allTable th.sortable").forEach(th=>th.addEventListener("click",()=>{const k=th.dataset.sort;if(k===sortKey)sortDir*=-1;else{sortKey=k;sortDir=(k==="l")?1:-1;}renderAll();}));
 
@@ -586,7 +586,7 @@ function renderTrades(){const el=document.getElementById("tradeList");if(!el||!S
 renderTrades();
 
 /* ---------- MANAGERS ---------- */
-document.getElementById("mgrs").innerHTML=M.map(m=>`<div class="card mcard" data-id="${m.id}"><div class="nm">${esc(m.name)}${m.wolf?' 🐺':''}</div><div class="tm">${esc(m.team)}</div><div class="rr"><span><b>${m.w}-${m.l}</b> all-time</span><span><b>${SD.records2026[m.name]||"—"}</b> ’26</span></div></div>`).join("");
+document.getElementById("mgrs").innerHTML=M.map(m=>`<div class="card mcard" data-id="${m.id}"><div class="nm">${esc(m.name)}${m.wolf?' 🐺':''}</div><div class="tm">${esc(m.team)}</div><div class="rr"><span><b>${m.w}-${m.l}</b> all-time</span><span><b>${SD.records2026[m.name]||"—"}</b> ’26</span></div>${m.fan?`<span class="chip" style="align-self:flex-start">${esc(m.fan)} fan</span>`:''}</div>`).join("");
 document.querySelectorAll("#mgrs .mcard").forEach(c=>c.addEventListener("click",()=>{location.hash="m_"+c.dataset.id;}));
 function closeProfile(){document.getElementById("mgrGrid").hidden=false;document.getElementById("mgrProfile").hidden=true;}
 function pvOrd(n){return n===1?"1st":n===2?"2nd":n===3?"3rd":n+"th";}
