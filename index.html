@@ -363,8 +363,9 @@ footer b{color:var(--fg)}
   table{min-width:0}
   th,td{padding:9px 10px}
   thead th{font-size:.68rem}
-  /* comfortable tap targets */
-  nav.tabs button{padding:13px 13px}
+  /* all 6 tabs reachable on phones: wrap to centered rows instead of hiding behind a hidden scrollbar */
+  nav.tabs .wrap{flex-wrap:wrap;justify-content:center;overflow-x:visible}
+  nav.tabs button{padding:11px 11px;font-size:.84rem;letter-spacing:.02em}
   .toggle button,.yearpick button,.years button{padding-top:10px;padding-bottom:10px}
   .mcard{padding:14px}
   .ep{padding:14px}
