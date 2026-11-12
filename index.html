@@ -1031,6 +1031,7 @@ function openProfile(id){const m=BYID[id];if(!m)return;const n=m.name;const P=(P
   if(!f.titles&&f.best)B.push(['📈','Best finish',f.bestOrd+' ('+(f.bestYear||[]).join('/')+')',false]);
   if(aw.bigdog)B.push(['🐕','Big Dog',aw.bigdog+'× in 2026',false]);
   {const cw=(SD.cotwLog||[]).filter(c=>c.mgr===n).length;if(cw)B.push(['📋','Coach of the Week',cw+'× in 2026',false]);}
+  (P.special||[]).forEach(s=>B.push([s.ic||'🏅',s.t,s.d,!!s.hi]));
   if(!f.titles&&f.runner)B.push(['💍','Still ringless',f.runner+'× runner-up, no title',false]);
   const sig=wk.length?wk.reduce((a,b)=>b.pf>a.pf?b:a):null,wor=wk.length?wk.reduce((a,b)=>b.pf<a.pf?b:a):null,eff26=c.bySeason&&c.bySeason['2026'];
   const MINI=[sig?[sig.pf,'Signature week (Wk'+sig.wk+')']:null,wor?[wor.pf,'Worst week (Wk'+wor.wk+')']:null,
