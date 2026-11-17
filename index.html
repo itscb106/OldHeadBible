@@ -135,6 +135,32 @@ td.num{text-align:right}
 
 /* awards */
 .awards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+/* A1 matchup previews */
+.mpvGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.mpv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative}
+.mpv.gotw{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.mpv .gtag{color:var(--gold);font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.mpv .mrow{display:flex;justify-content:space-between;align-items:baseline;margin:3px 0;gap:8px}
+.mpv .mt{font-weight:700}.mpv .mt small{color:var(--muted);font-weight:500;font-size:.74rem;margin-left:4px}.mpv .mt.fav{color:var(--gold)}
+.mpv .mp{font-variant-numeric:tabular-nums;font-weight:800;color:var(--muted)}.mpv .mt.fav+.mp{color:var(--gold)}
+.mpv .wp{height:8px;background:var(--surface2);border-radius:5px;overflow:hidden;margin:5px 0 7px;border:1px solid var(--line)}
+.mpv .wp i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#e4c56a)}
+.mpv .mh{color:var(--muted);font-size:.76rem;border-top:1px solid var(--line);padding-top:7px;margin-top:4px}
+/* A3 award/shame boards */
+.awbGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.awb{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.awb.fame{border-top:3px solid var(--gold)}.awb.shame{border-top:3px solid var(--loss)}
+.awb .bh{font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}.awb .bic{font-size:1.1rem}
+.awb .brow{display:grid;grid-template-columns:26px 1fr auto 84px;align-items:center;gap:9px;padding:4px 0;font-size:.9rem}
+.awb .bm{color:var(--muted)}.awb .bn{font-weight:600}.awb .bc{color:var(--gold);font-weight:700;font-size:.8rem}
+.awb .bar{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}.awb .bar i{display:block;height:100%;background:var(--gold)}
+.awb.shame .bar i{background:var(--loss)}.awb.shame .bc{color:var(--loss)}
+/* A5 record book */
+.rbkGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.rbk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px;text-align:center}
+.rbk .ic{font-size:1.5rem}.rbk .lab{color:var(--muted);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;margin:7px 0 6px}
+.rbk .val{font-weight:800;font-size:.9rem;line-height:1.3}.rbk .val small{display:block;color:var(--muted);font-weight:500;font-size:.72rem;margin-top:4px}
+@media(max-width:620px){.mpvGrid,.awbGrid{grid-template-columns:1fr}.rbkGrid{grid-template-columns:1fr}}
 .cotwlog{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
 .cotwlog::-webkit-scrollbar{display:none}
 .cotwhead{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;margin-bottom:8px}
@@ -488,7 +514,7 @@ footer b{color:var(--fg)}
       <div class="memorial"><span class="em trophy">🏆</span><div><h3>The Max Emerson Trophy</h3>
         <p><b>Max Emerson</b> founded the league in 2022, was its first commissioner and first champion. After he passed, CB took over. Every champion since lifts the trophy that bears his name. <span style="color:var(--fg)">This one’s for Max.</span></p></div></div>
     </section>
-    <section id="scoreboard"><div class="sec-head"><div><h2>This Week</h2></div><p id="sbNote"></p></div><div class="sb" id="sbGames"></div></section>
+    <section id="scoreboard"><div class="sec-head"><div><h2>This Week</h2></div><p id="sbNote"></p></div><div class="mpvGrid" id="sbGames"></div></section>
     <section id="awards"><div class="sec-head"><div><h2>Last Week’s Awards</h2></div><p id="awNote"></p></div><div class="awards" id="awGrid"></div></section>
     <section id="power"><div class="sec-head"><div><h2>Power Rankings</h2></div><p>Computed blend of record, scoring, and recent form. 2026.</p></div>
       <div class="tableScroll ctr"><table id="powerTable"><thead><tr><th>#</th><th>Manager</th><th class="num" title="Week-over-week movement">Move</th><th class="num">Record</th><th class="num">Points</th><th class="num">Last 3 avg</th></tr></thead><tbody></tbody></table></div></section>
@@ -550,6 +576,8 @@ footer b{color:var(--fg)}
     <section id="trades"><div class="sec-head"><div><h2>Trade Tracker</h2></div><p>Every completed trade this season, with the fantasy points each side’s new players have scored since the deal. “Winning” = more post-trade production.</p></div>
       <div class="tradeList" id="tradeList"></div>
       <p class="legend">Players are credited only for the weeks they were actually on the acquiring roster, so re-traded players count toward whichever trade’s window they played in. Totals update as games finish.</p></section>
+    <section id="awardboards"><div class="sec-head"><div><h2>Awards &amp; Shame Boards</h2></div><p>Season-long hardware and the hall of shame — who's collecting trophies, who's collecting clown noses. 2026.</p></div><div class="awbGrid" id="awbGrid"></div></section>
+    <section id="recordbook"><div class="sec-head"><div><h2>The Record Book</h2></div><p>The season's extremes — biggest blowout, closest call, and the most painful loss. Computed from every box score. 2026.</p></div><div class="rbkGrid" id="rbkGrid"></div></section>
   </div>
 
   <!-- MANAGERS -->
@@ -789,8 +817,50 @@ window.addEventListener("hashchange",route);
 
 /* ---------- THIS WEEK ---------- */
 function teamRow(t){return `<div class="grow"><div><div class="tm">${esc(t.team)}</div><div class="mn">${ml(t.mgr)}</div></div><div class="rc">${t.rec}</div></div>`;}
-document.getElementById("sbGames").innerHTML=SD.thisWeek.games.map(g=>`<div class="game">${teamRow(g.away)}${teamRow(g.home)}</div>`).join("");
-document.getElementById("sbNote").textContent=`Week ${SD.thisWeek.week} matchups · updates as games finish`;
+/* A1 — matchup previews */
+(function(){
+  var seedOf={},oddsOf={};(SD.poRace||[]).forEach(function(r){seedOf[r.mgr]=r.seed;oddsOf[r.mgr]=r.odds;});
+  var gms=function(rec){var p=(rec||'0-0').split('-');var g=(+p[0]||0)+(+p[1]||0);return g||1;};
+  var wp=function(a,b){return 1/(1+Math.exp(-((a.pf/gms(a.rec))-(b.pf/gms(b.rec)))/25));};
+  var gl=(SD.thisWeek.games||[]).map(function(g){var a=g.away,b=g.home,p=wp(a,b);return {a:a,b:b,pa:p,pb:1-p,close:Math.abs(p-.5),combo:(oddsOf[a.mgr]||0)+(oddsOf[b.mgr]||0)};});
+  var pool=gl.filter(function(x){return x.combo>40;});var base=pool.length?pool:gl;
+  var gotw=base.length?base.reduce(function(m,x){return x.close<m.close?x:m;},base[0]):null;
+  var h2hLine=function(a,b){var aw=hget(a,b),bw=hget(b,a);if(aw===bw)return 'All-time: even '+aw+'–'+bw;var L=aw>bw?[a,aw,bw]:[b,bw,aw];return 'All-time: '+esc(L[0])+' leads '+L[1]+'–'+L[2];};
+  var side=function(t,fav,pct){return '<div class="mrow"><span class="mt'+(fav?' fav':'')+'">'+ml(t.mgr)+' <small>#'+(seedOf[t.mgr]||'?')+' · '+t.rec+'</small></span><span class="mp">'+Math.round(pct*100)+'%</span></div>';};
+  var card=function(x){var fa=x.pa>=x.pb,gw=(x===gotw);return '<div class="mpv'+(gw?' gotw':'')+'">'+(gw?'<div class="gtag">★ Game of the Week</div>':'')+side(x.a,fa,x.pa)+'<div class="wp"><i style="width:'+Math.round(x.pa*100)+'%"></i></div>'+side(x.b,!fa,x.pb)+'<div class="mh">'+h2hLine(x.a.mgr,x.b.mgr)+'</div></div>';};
+  document.getElementById("sbGames").innerHTML=gl.map(card).join("");
+  document.getElementById("sbNote").textContent='Week '+SD.thisWeek.week+' · win probability is a projection, H2H is all-time';
+})();
+/* A3 — awards & shame boards */
+(function(){
+  var cotw={};(SD.cotwLog||[]).forEach(function(e){cotw[e.mgr]=(cotw[e.mgr]||0)+1;});
+  var A=function(k){var o={};NAMES.forEach(function(m){o[m]=((PROF.mgr[m]||{}).awards||{})[k]||0;});return o;};
+  var board=function(title,ic,obj,shame){
+    var rows=NAMES.map(function(m){return [m,obj[m]||0];}).filter(function(r){return r[1]>0;}).sort(function(x,y){return y[1]-x[1];});
+    if(!rows.length)return '';var max=rows[0][1];var medal=function(i){return i<3?['🥇','🥈','🥉'][i]:(i+1)+'.';};
+    var li=rows.map(function(r,i){return '<div class="brow"><span class="bm">'+medal(i)+'</span><span class="bn">'+ml(r[0])+'</span><span class="bc">×'+r[1]+'</span><span class="bar"><i style="width:'+Math.min(100,r[1]/max*100)+'%"></i></span></div>';}).join('');
+    return '<div class="awb '+(shame?'shame':'fame')+'"><div class="bh"><span class="bic">'+ic+'</span>'+title+'</div>'+li+'</div>';};
+  var el=document.getElementById("awbGrid");if(el)el.innerHTML=board('Coach of the Week','📋',cotw,false)+board('Big Dog · weekly high','🐕',A('bigdog'),false)+board('Clown Show · weekly low','🤡',A('clown'),true)+board('Benchastrophe · points left on bench','🪑',A('bench'),true);
+})();
+/* A5 — record book */
+(function(){
+  var seen={},G=[];
+  NAMES.forEach(function(m){((PROF.mgr[m]||{}).week2026||[]).forEach(function(w){
+    if(!(w.pf>0||w.os>0))return;var key=[m,w.opp].sort().join('@')+'@'+w.wk;if(seen[key])return;seen[key]=1;
+    G.push({wk:w.wk,win:w.res==='W'?m:w.opp,los:w.res==='W'?w.opp:m,ws:w.res==='W'?w.pf:w.os,ls:w.res==='W'?w.os:w.pf});});});
+  if(!G.length)return;
+  var pick=function(f){return G.reduce(function(m,g){return f(g,m)?g:m;},G[0]);};
+  var r1=function(n){return (Math.round(n*10)/10).toFixed(1);};
+  var blow=pick(function(g,m){return (g.ws-g.ls)>(m.ws-m.ls);}),nail=pick(function(g,m){return (g.ws-g.ls)<(m.ws-m.ls);}),hil=pick(function(g,m){return g.ls>m.ls;}),ugl=pick(function(g,m){return g.ws<m.ws;}),hi=pick(function(g,m){return g.ws>m.ws;}),lo=pick(function(g,m){return g.ls<m.ls;});
+  var tile=function(ic,lab,val){return '<div class="rbk"><div class="ic">'+ic+'</div><div class="lab">'+lab+'</div><div class="val">'+val+'</div></div>';};
+  var el=document.getElementById("rbkGrid");if(el)el.innerHTML=
+    tile('💥','Biggest Blowout',ml(blow.win)+' def. '+ml(blow.los)+' by '+r1(blow.ws-blow.ls)+'<small>'+r1(blow.ws)+'–'+r1(blow.ls)+' · Wk'+blow.wk+'</small>')+
+    tile('😅','Closest Game',ml(nail.win)+' edged '+ml(nail.los)+' by '+r1(nail.ws-nail.ls)+'<small>'+r1(nail.ws)+'–'+r1(nail.ls)+' · Wk'+nail.wk+'</small>')+
+    tile('💔','Highest-Scoring Loss',ml(hil.los)+' lost with '+r1(hil.ls)+'<small>fell to '+ml(hil.win)+' '+r1(hil.ws)+' · Wk'+hil.wk+'</small>')+
+    tile('🤢','Ugliest Win',ml(ugl.win)+' won with just '+r1(ugl.ws)+'<small>over '+ml(ugl.los)+' '+r1(ugl.ls)+' · Wk'+ugl.wk+'</small>')+
+    tile('🚀','Highest Score',ml(hi.win)+' — '+r1(hi.ws)+'<small>Week '+hi.wk+'</small>')+
+    tile('🧊','Lowest Score',ml(lo.los)+' — '+r1(lo.ls)+'<small>Week '+lo.wk+'</small>');
+})();
 const aw=SD.lastWeek.awards;
 document.getElementById("awNote").textContent=`Week ${SD.lastWeek.week}`;
 {const awList=[
